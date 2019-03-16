@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS挖矿了解一下？ - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#区块链与挖矿"><span class="toc-text">区块链与挖矿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译xmrig-for-iOS"><span class="toc-text">编译xmrig for iOS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编译静态块"><span class="toc-text">编译静态块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上架"><span class="toc-text">上架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小白挖矿"><span class="toc-text">小白挖矿</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS挖矿了解一下？
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-01 15:35:10</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#iOS 挖矿" title="iOS 挖矿">iOS 挖矿</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="区块链与挖矿"><a href="#区块链与挖矿" class="headerlink" title="区块链与挖矿"></a>区块链与挖矿</h3><p>如果要问你2018年互联网什么最火？肯定是区块链啊！有多火？听说前几天区块链大会上毛爷爷都现身了😅。区块链是啥，百度百科的解释是<code>区块链是分布式数据存储、点对点传输、共识机制、加密算法等计算机技术的新型应用模式</code>。😯好复杂有木有，那区块链能干啥？那很多啦，比如说发币、挖矿还有🤐。再说炒币，听说是韭菜割了一茬又一茬，郁郁葱葱，野火烧不尽啊。</p>
+<p>说正事，iOS设备怎么挖矿。我使用的是<a href="https://github.com/xmrig/xmrig" target="_blank" rel="noopener">xmrig</a>，官方提供了window平台的支持，提供了MacOS等平台的编译方法，唯独没有iOS和Android设备，可是我想用我的iPhone挖一挖啊，不中，我得看看能不能编译出来iOS的包。<br><a id="more"></a></p>
+<h3 id="编译xmrig-for-iOS"><a href="#编译xmrig-for-iOS" class="headerlink" title="编译xmrig for iOS"></a>编译xmrig for iOS</h3><p>xmrig的作者使用C++封装了门罗币算法，如果如果我们要在iOS平台上使用有两种方案：</p>
+<ol>
+<li>源码拖到iOS工程里，直接调用C++方法，因为OC或者Swift与C++是可混编的。</li>
+<li>编译成静态库，导入工程使用。</li>
+</ol>
+<p>有兴趣的朋友可以试试方法一，反正我是放弃了，卡卡卡全是错。接下来我介绍方法二。</p>
+<h4 id="编译静态块"><a href="#编译静态块" class="headerlink" title="编译静态块"></a>编译静态块</h4><ol>
+<li>clone xmrig</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/xmrig/xmrig.git</span><br></pre></td></tr></table></figure>
+<p>可以看到根目录里面有一个<code>CMakeLists.txt</code>文件，这个文件里定义了编译规则。</p>
+<ol>
+<li>ios-cmake</li>
+</ol>
+<p>cmake是一个夸平台编译工具，具体可参考<a href="http://www.hahack.com/codes/cmake/" target="_blank" rel="noopener">cmake</a>。github上有一个针对iOS平台的cmake工具<a href="https://github.com/leetal/ios-cmake" target="_blank" rel="noopener">ios-cmake</a>。同样clone到本地</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/leetal/ios-cmake</span><br></pre></td></tr></table></figure>
+<ol>
+<li>编译libuv for ios</li>
+</ol>
+<p>xmrig依赖于libuv，但libuv没有iOS的版本，我们需要针对编译，具体可参考我之前的文章<a href="http://riverli.me/2018/05/31/2018-05-20%E5%91%A8%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/">libuv移植的iOS平台</a></p>
+<ol>
+<li><p>修改 CMakeLists.txt</p>
+<ol>
+<li>添加静态库标识</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">add_library( # Sets the name of the library.</span><br><span class="line">             native-lib</span><br><span class="line">             # Sets the library as a shared library.</span><br><span class="line">              # SHARED</span><br><span class="line">            STATIC</span><br><span class="line">             # Provides a relative path to your source file(s).</span><br><span class="line">             $&#123;HEADERS&#125; $&#123;SOURCES&#125; $&#123;SOURCES_OS&#125; $&#123;SOURCES_CPUID&#125; $&#123;HEADERS_CRYPTO&#125; $&#123;SOURCES_CRYPTO&#125;)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>指定C++版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set (CMAKE_CXX_STANDARD 11)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加install 命令</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//导出文件路径</span><br><span class="line">set (CMAKE_INSTALL_PREFIX "自定义路径")</span><br><span class="line">install (TARGETS native-lib DESTINATION .)</span><br><span class="line">install (FILES $&#123;HEADERS&#125; $&#123;HEADERS_CRYPTO&#125; DESTINATION .)</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>你需要根据具体报错信息去修改这个文件。</p>
+</li>
+<li><p>开始编译</p>
+<p>在根目录依次执行如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//命令1</span><br><span class="line">cmake .. -DWITH_HTTPD=OFF -DWITH_LIBCPUID=OFF -DUV_INCLUDE_DIR="libuv include文件路径" -DUV_LIBRARY="libuv.a文件的路径" -DCMAKE_TOOLCHAIN_FILE="ios-cmake文件路径" -DENABLE_ARC=0 -DENABLE_BITCODE=0</span><br><span class="line">//命令2</span><br><span class="line">make</span><br><span class="line">//命令3</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>之后你会在第四步设置的导出文件里看到导出的静态库以及头文件。</p>
+</li>
+<li><p>将静态库已经头文件拖入工程、调用相关方法执行。这里的具体调用我就不细说了。因为不同的版本调用方式不一样，差异挺大。核心的方法都集中在<code>crypto</code>文件下。</p>
+</li>
+<li><p>执行，我用我的iPhone6测试机单线程算力在6H/s，双线程在11H/s，下图是apple测试员在ipad上的执行效果。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1frvml52zb1j208c0b4q31.jpg" alt="效果"></p>
+<h3 id="上架"><a href="#上架" class="headerlink" title="上架"></a>上架</h3><p>目前AppStore是不允许类似的应用上架的，因为违反了<code>Guideline 1.4.5 - Safety - Physical Harm</code>。当然你可以以其他方式达到上架的目的。</p>
+<h3 id="小白挖矿"><a href="#小白挖矿" class="headerlink" title="小白挖矿"></a>小白挖矿</h3><p>如果你对挖矿感兴趣可以使用<a href="http://hashfish.net/" target="_blank" rel="noopener">哈鱼矿工</a>这个软件，目前这个软件实现了在Window、MacOS、Linux等系统上一键挖矿，而且目前是0抽成还有收徒红包。并且任何使用问题都可以在官方QQ群中咨询。QQ群号：624825298</p>
+</li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

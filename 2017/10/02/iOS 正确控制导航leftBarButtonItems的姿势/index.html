@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS 正确控制导航leftBarButtonItems的姿势 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#leftBarButtonItems-结构分析"><span class="toc-text">leftBarButtonItems 结构分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#层级结构"><span class="toc-text">层级结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求自定义距屏幕左边距"><span class="toc-text">需求自定义距屏幕左边距</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求多个元素情况下距左边距"><span class="toc-text">需求多个元素情况下距左边距</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求多个元素情况下，自定义items间的距离"><span class="toc-text">需求多个元素情况下，自定义items间的距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拓展"><span class="toc-text">拓展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS 正确控制导航leftBarButtonItems的姿势
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-10-02 20:41:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#APNS" title="APNS">APNS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="leftBarButtonItems-结构分析"><a href="#leftBarButtonItems-结构分析" class="headerlink" title="leftBarButtonItems 结构分析"></a>leftBarButtonItems 结构分析</h2><h3 id="层级结构"><a href="#层级结构" class="headerlink" title="层级结构"></a>层级结构</h3><p>我看了对比了iOS9 和iOS 11的层级结构，如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fk1le2ecrdj30bq04oq3f.jpg" alt="iOS9"><br><a id="more"></a></p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fk1m997pmtj30b805lmxp.jpg" alt="iphone 7 iOS 11"></p>
+<p>可以看出，iOS11 之后NavigationBar的层级发生了较大变化。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>通过比较，我发现如下结论：</p>
+<ol>
+<li>默认情况下，在320、375宽度的屏幕上，第一个按钮距离屏幕左边界的宽度是16，在414第一个按钮距离屏幕左边界的宽度是20。</li>
+<li>默认情况下，在320、375宽度的屏幕上，BarButtonItems之间的间距是8，在414宽度的屏幕上，BarButtonItems之间的间距是10。</li>
+<li>iOS11 , 所有Items都包括在 <strong>_UIButtonBarStackView</strong> 下，控制它的X坐标即可控制左边距。</li>
+<li>iOS9，所有Item都在NavigationBar下，统计并排，所以控制左边距，只需要控制第一个元素的左边距。</li>
+</ol>
+<h2 id="需求自定义距屏幕左边距"><a href="#需求自定义距屏幕左边距" class="headerlink" title="需求自定义距屏幕左边距"></a>需求自定义距屏幕左边距</h2><p>我的做法很粗暴，直接去修改上面结论的坐标，步骤如下：</p>
+<ol>
+<li>自定义UINavigationBar.</li>
+<li>重写(void)drawRect:(CGRect)rect;</li>
+<li>调用。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@interface CustomUINavigationBar : UINavigationBar</span><br><span class="line">@property (nonatomic,assign) CGFloat leftValue;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation CustomUINavigationBar</span><br><span class="line"></span><br><span class="line">- (void)drawRect:(CGRect)rect &#123;</span><br><span class="line">    [super drawRect:rect];</span><br><span class="line">    </span><br><span class="line">    if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 11.0) &#123;</span><br><span class="line">        for (UIView *view in self.subviews) &#123;</span><br><span class="line">            for (UIView *subView in view.subviews) &#123;</span><br><span class="line">                if ([NSStringFromClass(subView.class) isEqualToString:@&quot;_UIButtonBarStackView&quot;]) &#123;</span><br><span class="line">                    subView.frame = CGRectMake(self.leftValue, subView.frame.origin.y, subView.frame.size.width, subView.frame.size.height);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        for (int i=0; i&lt;self.subviews.count; i++) &#123;      </span><br><span class="line">            UIView *t_view = self.subviews[i];</span><br><span class="line">            if (i==0) &#123;</span><br><span class="line">                t_view.frame = CGRectMake(self.leftValue, t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>注： 以上代码只适合leftBarButtonItems中只有一个元素的情况下。因为在多个元素的情况下，iOS10之前，items是平级的，直接在NavigationBar下，修改第一个元素无法修改第二个元素之后元素的坐标。</p>
+<h2 id="需求多个元素情况下距左边距"><a href="#需求多个元素情况下距左边距" class="headerlink" title="需求多个元素情况下距左边距"></a>需求多个元素情况下距左边距</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@implementation CustomUINavigationBar</span><br><span class="line"></span><br><span class="line">- (void)drawRect:(CGRect)rect &#123;</span><br><span class="line">    [super drawRect:rect];</span><br><span class="line">    </span><br><span class="line">    if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 11.0) &#123;</span><br><span class="line">        for (UIView *view in self.subviews) &#123;</span><br><span class="line">            for (UIView *subView in view.subviews) &#123;</span><br><span class="line">                if ([NSStringFromClass(subView.class) isEqualToString:@&quot;_UIButtonBarStackView&quot;]) &#123;</span><br><span class="line">                    subView.frame = CGRectMake(self.leftValue, subView.frame.origin.y, subView.frame.size.width, subView.frame.size.height);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        for (int i=0; i&lt;self.subviews.count; i++) &#123;</span><br><span class="line">            </span><br><span class="line">            UIView *t_view = self.subviews[i];</span><br><span class="line">            if (i==0) &#123;</span><br><span class="line">                t_view.frame = CGRectMake(self.leftValue, t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">              // (1)相比前一段代码，多了如下几行。</span><br><span class="line">                if (SCREEN_WIDTH == 414) &#123;</span><br><span class="line">                        t_view.frame = CGRectMake(t_view.frame.origin.x-20+self.leftValue, t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                        t_view.frame = CGRectMake(t_view.frame.origin.x-16+self.leftValue, t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>注：请看注释(1)。为什么要对屏幕宽度判断，请参考结论1。</p>
+<h2 id="需求多个元素情况下，自定义items间的距离"><a href="#需求多个元素情况下，自定义items间的距离" class="headerlink" title="需求多个元素情况下，自定义items间的距离"></a>需求多个元素情况下，自定义items间的距离</h2><ol>
+<li><p>iOS 9</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fk1kzj6c7vj308202daa4.jpg" alt="ios9 层级结构"></p>
+<p>如上图所示：计算items之间的元素距离就是计算b,的x坐标位置。</p>
+<p>​</p>
+</li>
+<li><p>iOS 11</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fk1l36u5z0j3096067wf3.jpg" alt="iOS 11"></p>
+<p>如上图, 通过Xcode可以看出UIView(b)的宽度，坐标刚好符合 a c 之间的间隔，但是通过修改b的宽度确实无法实现修改items之间的间隔。只能通过修改 <strong>_UITAMICAdaptorView</strong>的x坐标来改边items之间的间距。</p>
+</li>
+<li><p>具体使用</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//1. 使用自定义的NavigationBar</span><br><span class="line">UINavigationController *nav = [[UINavigationController alloc] initWithNavigationBarClass:[CustomUINavigationBar class] toolbarClass:nil];</span><br><span class="line">    ViewController *vc = [[ViewController alloc] init];</span><br><span class="line">    [nav setViewControllers:@[vc]];</span><br><span class="line">    self.window.rootViewController = nav;</span><br><span class="line"></span><br><span class="line">//2. 在设置完leftItems之后设置距离左边的距离，或者items之间的间距</span><br><span class="line">/*..your setting..*/</span><br><span class="line">self.navigationItem.leftBarButtonItems = @[leftBar, leftBar1];</span><br><span class="line">CustomUINavigationBar *navbar = (CustomUINavigationBar *)self.navigationController.navigationBar;</span><br><span class="line">navbar.leftValue = 10;</span><br><span class="line">[navbar setItemsSpace:0];</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>最终代码</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">@interface CustomUINavigationBar : UINavigationBar</span><br><span class="line">@property (nonatomic,assign) CGFloat leftValue;</span><br><span class="line">- (void)setItemsSpace:(CGFloat)space;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width</span><br><span class="line">@interface CustomUINavigationBar()</span><br><span class="line">@property (nonatomic, assign)CGFloat spaceBetweenItems;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation CustomUINavigationBar</span><br><span class="line"></span><br><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        self.spaceBetweenItems = -1024;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)drawRect:(CGRect)rect &#123;</span><br><span class="line">    [super drawRect:rect];</span><br><span class="line">    </span><br><span class="line">    if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 11.0) &#123;</span><br><span class="line">        for (UIView *view in self.subviews) &#123;</span><br><span class="line">            for (UIView *subView in view.subviews) &#123;</span><br><span class="line">                if ([NSStringFromClass(subView.class) isEqualToString:@&quot;_UIButtonBarStackView&quot;]) &#123;</span><br><span class="line">                    </span><br><span class="line">                    NSInteger count = 0;</span><br><span class="line">                    for(int i= 1; i&lt;subView.subviews.count; i++) &#123;</span><br><span class="line">                        UIView *t_subview = subView.subviews[i];</span><br><span class="line">                        if ([NSStringFromClass(t_subview.class) isEqualToString:@&quot;_UITAMICAdaptorView&quot;] ) &#123;</span><br><span class="line">                            count ++;</span><br><span class="line">                            if (SCREEN_WIDTH == 414) &#123;</span><br><span class="line">                                t_subview.frame = CGRectMake(t_subview.frame.origin.x - (10-self.spaceBetweenItems), t_subview.frame.origin.y, t_subview.frame.size.width, t_subview.frame.size.height);</span><br><span class="line">                            &#125;else&#123;</span><br><span class="line">                                t_subview.frame = CGRectMake(t_subview.frame.origin.x - (8-self.spaceBetweenItems), t_subview.frame.origin.y, t_subview.frame.size.width, t_subview.frame.size.height);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                    if (SCREEN_WIDTH == 414) &#123;</span><br><span class="line">                        subView.frame = CGRectMake(self.leftValue, subView.frame.origin.y, subView.frame.size.width - (count-1)*(10 - _spaceBetweenItems), subView.frame.size.height);</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        subView.frame = CGRectMake(self.leftValue, subView.frame.origin.y, subView.frame.size.width - (count-1)*(8 - _spaceBetweenItems), subView.frame.size.height);</span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        for (int i=0; i&lt;self.subviews.count; i++) &#123;</span><br><span class="line">            </span><br><span class="line">            UIView *t_view = self.subviews[i];</span><br><span class="line">            NSString *class = NSStringFromClass(t_view.class);</span><br><span class="line">          //_UINavigationBarBackIndicatorView 通过层级结构可以看出有这个view, 在这个不做任何修改，保持系统原样。</span><br><span class="line">            if ([class isEqualToString:@&quot;_UINavigationBarBackIndicatorView&quot;]) &#123;</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            if (i==0) &#123;</span><br><span class="line">                t_view.frame = CGRectMake(self.leftValue, t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if (SCREEN_WIDTH == 414) &#123;</span><br><span class="line">                        t_view.frame = CGRectMake((t_view.frame.origin.x-20+self.leftValue)-(10-self.spaceBetweenItems), t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                        t_view.frame = CGRectMake((t_view.frame.origin.x-16+self.leftValue) -(8-self.spaceBetweenItems), t_view.frame.origin.y, t_view.frame.size.width, t_view.frame.size.height);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(CGFloat)spaceBetweenItems &#123;</span><br><span class="line">    if (_spaceBetweenItems == -1024) &#123;</span><br><span class="line">        if (SCREEN_WIDTH == 414) &#123;</span><br><span class="line">            return 10;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return 8;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return _spaceBetweenItems;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">- (void)setItemsSpace:(CGFloat)space &#123;</span><br><span class="line">    self.spaceBetweenItems = space;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h2><p>如果你有兴趣可以继续往下考虑：</p>
+<ol>
+<li>items间距不一样如何处理？</li>
+<li>能不能使用AOP实现？</li>
+<li>如何进一步封装？</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://tech.meituan.com/iPhoneX%E5%88%98%E6%B5%B7%E6%89%93%E7%90%86%E6%8C%87%E5%8C%97.html" target="_blank" rel="noopener">美团齐刘海整理</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

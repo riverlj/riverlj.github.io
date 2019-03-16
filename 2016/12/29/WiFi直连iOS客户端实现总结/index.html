@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        WiFi直连iOS端总结 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WiFi直连iOS端总结"><span class="toc-text">WiFi直连iOS端总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#整体流程"><span class="toc-text">整体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#引导用户输入WiFi密码程序逻辑"><span class="toc-text">引导用户输入WiFi密码程序逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加WiFi状态监听"><span class="toc-text">添加WiFi状态监听</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提示用户切换到TV端热点程序逻辑"><span class="toc-text">提示用户切换到TV端热点程序逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发送消息给TV端"><span class="toc-text">发送消息给TV端</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        WiFi直连iOS端总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2016-12-29 19:50:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#WiFi" title="WiFi">WiFi</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="WiFi直连iOS端总结"><a href="#WiFi直连iOS端总结" class="headerlink" title="WiFi直连iOS端总结"></a>WiFi直连iOS端总结</h1><h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>功能概述：客户端通过引导用户输入家庭WiFi名称以及密码，将WiFi信息发送给TV端，TV端去连接家庭WiFi获取网上冲浪功能。<br><a id="more"></a><br><img src="http://upload-images.jianshu.io/upload_images/691666-126e8f8424f2fb4a.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="整体流程"></p>
+<h2 id="引导用户输入WiFi密码程序逻辑"><a href="#引导用户输入WiFi密码程序逻辑" class="headerlink" title="引导用户输入WiFi密码程序逻辑"></a>引导用户输入WiFi密码程序逻辑</h2><p>在这个界面，主要是监听WiFi的变化，自动获取WiFi的SSID，并填充在WiFi名称输入框。<br>点击下一步是，如果连接的WiFi是TV端的WiFi，则不能进行下一步。通过SSID前缀判断。</p>
+<h3 id="添加WiFi状态监听"><a href="#添加WiFi状态监听" class="headerlink" title="添加WiFi状态监听"></a>添加WiFi状态监听</h3><p>每次WiFi状态发生变化，都发出一个通知名为 “WK_NOTIFICATION_WIFI_CHANGED_IN_WIFICONNECT”的消息，我们在该页面通过监听这个通知，实时获取WiFi消息，并填充WiFi名。<br>WiFiMessage 中包含了监听WiFi的代码。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)startMonitorWifiChange &#123;</span><br><span class="line"><span class="built_in">CFNotificationCenterAddObserver</span>(</span><br><span class="line"><span class="built_in">CFNotificationCenterGetDarwinNotifyCenter</span>(), </span><br><span class="line"><span class="literal">NULL</span>, </span><br><span class="line">&amp;onNotifyCallback, </span><br><span class="line"><span class="built_in">CFSTR</span>(kNotifySCNetworkChange),  </span><br><span class="line"><span class="literal">NULL</span>, </span><br><span class="line"><span class="built_in">CFNotificationSuspensionBehaviorDeliverImmediately</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)stopMonitorWifiChange &#123;</span><br><span class="line"><span class="built_in">CFNotificationCenterRemoveObserver</span>(</span><br><span class="line"><span class="built_in">CFNotificationCenterGetDarwinNotifyCenter</span>(),</span><br><span class="line"><span class="literal">NULL</span>,</span><br><span class="line"><span class="built_in">CFSTR</span>(kNotifySCNetworkChange),</span><br><span class="line"><span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> onNotifyCallback(</span><br><span class="line"><span class="built_in">CFNotificationCenterRef</span> center,</span><br><span class="line"><span class="keyword">void</span> *observer,</span><br><span class="line"><span class="built_in">CFStringRef</span> name,</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">void</span> *object,</span><br><span class="line"><span class="built_in">CFDictionaryRef</span> userInfo) &#123;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">CFStringCompare</span>(name, <span class="built_in">CFSTR</span>(kNotifySCNetworkChange), kCFCompareCaseInsensitive) == kCFCompareEqualTo) </span><br><span class="line">&#123;</span><br><span class="line">WiFiMessage *message = [WiFiMessage sharedMessage];</span><br><span class="line">[message getCurrentWifiMessage];</span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter]       postNotificationName:<span class="string">@"WK_NOTIFICATION_WIFI_CHANGED_IN_WIFICONNECT"</span> object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="提示用户切换到TV端热点程序逻辑"><a href="#提示用户切换到TV端热点程序逻辑" class="headerlink" title="提示用户切换到TV端热点程序逻辑"></a>提示用户切换到TV端热点程序逻辑</h2><p>在这个步骤里主要是让获取切换到TV端热点，并连接到获取到TV到IP地址，以便下一步发送WiFi名称以及密码。<br><img src="http://upload-images.jianshu.io/upload_images/691666-47e6301e80c2a5ec.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="程序逻辑"></p>
+<h2 id="发送消息给TV端"><a href="#发送消息给TV端" class="headerlink" title="发送消息给TV端"></a>发送消息给TV端</h2><p>该页面主要是一个发送WiFi信息给TV端的过程。值得注意的是：我们这个只能判断WiFi信息是否发送成功，并不能判断TV端是否已经使用该WiFi信息连接上了外网。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

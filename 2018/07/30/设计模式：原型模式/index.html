@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        设计模式：原型模式 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式及其作用"><span class="toc-text">原型模式及其作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时使用原型模式"><span class="toc-text">何时使用原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝和深拷贝"><span class="toc-text">浅拷贝和深拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式的实践"><span class="toc-text">原型模式的实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        设计模式：原型模式
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-30 08:13:52</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>我们知道设计模式方面的知识是一个初中级工程师进阶高级工程师过程中一道无法跨越的屏障，学好它并将它应用到自己的项目中是一件充满乐趣和成就感的事情。本文将讲述设计模式中的原型模式，通过阅读本文你将收获如下内容：</p>
+<ul>
+<li>什么是原型模式以及它的作用。</li>
+<li>什么时间使用原型模式。</li>
+<li>Objective-C中深拷贝和浅拷贝</li>
+<li>原型模式的具体实践。</li>
+</ul>
+<a id="more"></a>
+<p>下面我们分条讲述。</p>
+<h3 id="原型模式及其作用"><a href="#原型模式及其作用" class="headerlink" title="原型模式及其作用"></a>原型模式及其作用</h3><p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftqhn1j59aj20g70b13yn.jpg" alt="原型模式"></p>
+<p>如上图所示，原型模式是指，一个抽象类 <code>Prototype</code> 具有一个<code>clone</code> 方法，其实现类<code>ConcretePrototype1</code>、<code>ConcretePrototype2</code> 实现各自的<code>clone</code>方法，在使用的时候，调用Prototype的clone方法可以clone任意实现类。其作用就是快速创建一个新的对象。请看如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Prototype *type = [[ConcretePrototype1 alloc] init];</span><br><span class="line">//(1)对type所持有的变量进行赋值。</span><br><span class="line">type.a = </span><br><span class="line">type.b = </span><br><span class="line">//(2)保存type的现有状态</span><br><span class="line">[array addObject:type];</span><br><span class="line"></span><br><span class="line">//(3)继续变更type的信息。</span><br><span class="line">type.a = </span><br><span class="line">type.b =</span><br></pre></td></tr></table></figure>
+<p>在上诉代码中，在步骤(2)中我们需要暂存一下当前type的状态，以便后续做比较或者其他用途。按照上面的代码是无法实现我们的需求的，因为把type加到数组之后，之后type的值依然再改变。为了不然type的值变化，我们可能这样做：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Prototype *type = [[ConcretePrototype1 alloc] init];</span><br><span class="line">//(1)对type所持有的变量进行赋值。</span><br><span class="line">type.a = </span><br><span class="line">type.b = </span><br><span class="line"></span><br><span class="line">//(2)保存type的现有状态</span><br><span class="line">Prototype *tempType = [[ConcretePrototype1 alloc] init];</span><br><span class="line">tempType.a = type.a</span><br><span class="line">tempType.b = type.b</span><br><span class="line">[array addObject:tempType];</span><br><span class="line"></span><br><span class="line">//(3)继续变更type的信息。</span><br><span class="line">type.a = </span><br><span class="line">type.b =</span><br></pre></td></tr></table></figure>
+<p>想一想，你是否写过这样的代码？这样的代码有什么不好呢？</p>
+<ol>
+<li>代码冗余，如果需要多次保存状态，可能需要写多个这样的赋值逻辑，当然，你可以把它抽出来作为一个单独的函数。</li>
+<li>如果type对象的属性中包含了多个其他对象，那么简单的赋值操作并不能保存这些对象的状态，还需要去创建这些对象，并拷贝其内部属性，这是相当繁琐的工程。</li>
+</ol>
+<p>看到这里你可能会想，我根本不会这么做，我会使用NSObject提供的copy方法，实现NSCopying 协议进行复制。你的想法非常赞，其实NSCopying就是Cocoa框架提供的一种原型模式，在讲解之前，我们先说一下，Objective-C的浅拷贝和深拷贝。</p>
+<h3 id="何时使用原型模式"><a href="#何时使用原型模式" class="headerlink" title="何时使用原型模式"></a>何时使用原型模式</h3><ul>
+<li>需要创建的对象应独立于其类型与创建方式。</li>
+<li>要实例化的类是在运行时决定的。</li>
+<li>不想要与产品层次相对应的工厂层次。</li>
+<li>不同类的实例间的差异仅是状态的若干组合。因此复制相应数量的原型比手工实例化更加方便。</li>
+<li>类不容易创建，比如每个组件可把其他组件作为子节点的组合对象。复制已有的组合对象并对副本进行修改会更加容易。</li>
+<li>从功能的角度来讲，不管什么对象，只要复制自身比手工实例化要好，都可以是原型对象。</li>
+</ul>
+<p>在以下两种特别常见的情形，我们会考虑使用此模式：</p>
+<ul>
+<li>有很多相关的类，其行为略有不同，而且主要差异在于内部属性，如名称，图像等。</li>
+<li>需要使用组合(树型)对象作为其他东西的基础。例如，使用组合对象作为组件来构建另一个组合对象。</li>
+</ul>
+<h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><p>我们知道，OC中的变量引用有值引用和指针引用。对于值引用而言，没有深拷贝和浅拷贝的区分，区别在于指针引用。我们先看浅拷贝模型。</p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftqopdkxv8j20fg0dyq3b.jpg" alt="浅拷贝"></p>
+<p>深拷贝</p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftqoputfjxj20fi0e9jrq.jpg" alt="深拷贝"></p>
+<p>由上面两个模型可以看出深拷贝是将内存中的资源也进行了一份拷贝，而浅拷贝只是内存资源指针的拷贝。</p>
+<h3 id="原型模式的实践"><a href="#原型模式的实践" class="headerlink" title="原型模式的实践"></a>原型模式的实践</h3><p>填写表单使我们在我们生活中经常遇到，我们要填很多表单，比如说上学要填报名表，上班要填职位表等等，有时候我们填了一般忘记了关键信息或者有其他重要的事要先处理，我们需要先把现有表单信息保存下来，等有时间了再拿出来继续填写。</p>
+<p>首先我们需要一个表单协议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@protocol Form &lt;NSObject, NSCopying&gt;</span><br><span class="line">@property (copy, nonatomic) NSString *name;</span><br><span class="line">@property (copy, nonatomic) NSString *address;</span><br><span class="line">@property (strong, nonatomic) NSMutableArray *relatedForm;</span><br><span class="line"></span><br><span class="line">- (void)printSelf;</span><br><span class="line">- (void)addForm:(id)form;</span><br><span class="line">- (id)copy;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>我们还有一个学校的表单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@interface SchoolForm : NSObject &lt;Form&gt;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation SchoolForm</span><br><span class="line">@synthesize address;</span><br><span class="line">@synthesize name;</span><br><span class="line">@synthesize relatedForm;</span><br><span class="line"></span><br><span class="line">- (instancetype)init:(NSString *)name address:(NSString *)address</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        self.name = name;</span><br><span class="line">        self.address = address;</span><br><span class="line">        self.relatedForm = [[NSMutableArray alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)printSelf &#123;</span><br><span class="line">    NSLog(@&quot;name=%@，address=%@&quot;, self.name, self.address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)addForm:(id)form &#123;</span><br><span class="line">    [self.relatedForm addObject:form];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (nonnull id)copyWithZone:(nullable NSZone *)zone &#123;</span><br><span class="line">    SchoolForm *form = [[self.class allocWithZone:zone] init:self.name address:self.address];</span><br><span class="line">    </span><br><span class="line">    for (id&lt;Form&gt; tform in self.relatedForm) &#123;</span><br><span class="line">        [form.relatedForm addObject:[tform copy]];</span><br><span class="line">    &#125;</span><br><span class="line">    return form;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    SchoolForm *schoolForm1 = [[SchoolForm alloc] init:@&quot;清华大学&quot; address:@&quot;北京&quot;];</span><br><span class="line">    SchoolForm *schoolForm2 = [[SchoolForm alloc] init:@&quot;北京大学&quot; address:@&quot;北京&quot;];</span><br><span class="line">    [schoolForm1 addForm:schoolForm2];</span><br><span class="line">    </span><br><span class="line">    SchoolForm *copySchool = [schoolForm1 copy];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;copySchool&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里有一个非常有趣的问题，为什么要在<code>Form</code>协议里面添加一个copy方法，如果不写成copy，写为clone方法会怎么样？</p>
+<p>答案是NSObject类里面含有copy方法，当调用copy方法的时候回自动调用copyWithZone方法，我们在SchoolForm的copyWithZone方法里遍历了所用相关的form, 二这些form的类型实在运行时才能确定的，可能是schoolForm也可能是JobForm等等。但无论是什么类型的Form，它都继承自NSObject。所以这是一个偷梁换柱的操作，看起来像是调用<code>Form</code>协议里的copy方法，其实是调用NSObject的copy方法。换成clone的话就不能使用NSCopying协议了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>本文参考《Objective-C编程之道：iOS设计模式解析》<br>你可以在公众号里回复”资源”得到本书的电子版，当然建议购买正版。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

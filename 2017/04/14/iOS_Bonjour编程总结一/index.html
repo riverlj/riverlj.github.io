@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS_Bonjour编程总结一 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Bonjour-简介"><span class="toc-text">Bonjour 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#发布服务"><span class="toc-text">发布服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-创建socket"><span class="toc-text">1.   创建socket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码解析"><span class="toc-text">代码解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-发布Bonjour服务"><span class="toc-text">2. 发布Bonjour服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-接受socket-回调"><span class="toc-text">3. 接受socket 回调</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS_Bonjour编程总结一
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-04-14 09:04:41</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#网络编程" title="网络编程">网络编程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="Bonjour-简介"><a href="#Bonjour-简介" class="headerlink" title="Bonjour 简介"></a>Bonjour 简介</h1><p>Bonjour是这样的一种技术，设备可以通过它轻松探测并连接到相同网络中的其他设备，整个过程只需要很少的用户参与或是根本就不需要用户参与。典型的Bonjour应用有Remote应用，AirPrint等。建立一个Bonjour连接一般需要三个步骤，服务端发布服务，客户端浏览服务，客户端服务端交互。<br><a id="more"></a></p>
+<h1 id="发布服务"><a href="#发布服务" class="headerlink" title="发布服务"></a>发布服务</h1><h2 id="1-创建socket"><a href="#1-创建socket" class="headerlink" title="1.   创建socket"></a>1.   创建socket</h2><p>demo代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">-(BOOL)setupListeningSocket</span><br><span class="line">&#123;</span><br><span class="line">    CFSocketContext socketCtxt = &#123;0,(__bridge void*)self, NULL, NULL, NULL&#125;;</span><br><span class="line">    </span><br><span class="line">    ipv4socket = CFSocketCreate(kCFAllocatorDefault, </span><br><span class="line">                                PF_INET, </span><br><span class="line">                                SOCK_STREAM, </span><br><span class="line">                                IPPROTO_TCP, </span><br><span class="line">                                kCFSocketAcceptCallBack, </span><br><span class="line">                                (CFSocketCallBack)&amp;BonjourServerAcceptCallBack, </span><br><span class="line">                                &amp;socketCtxt);</span><br><span class="line">    </span><br><span class="line">    if (ipv4socket == NULL) &#123;</span><br><span class="line">        if (ipv4socket) &#123;</span><br><span class="line">            CFRelease(ipv4socket);</span><br><span class="line">        &#125;</span><br><span class="line">        ipv4socket = NULL;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int yes = 1;</span><br><span class="line">    setsockopt(CFSocketGetNative(ipv4socket),</span><br><span class="line">               SOL_SOCKET,</span><br><span class="line">               SO_REUSEADDR,</span><br><span class="line">               (void *)&amp;yes,</span><br><span class="line">               sizeof(yes));</span><br><span class="line">    </span><br><span class="line">    struct sockaddr_in addr4;</span><br><span class="line">    memset(&amp;addr4, 0, sizeof(addr4));</span><br><span class="line">    addr4.sin_len = sizeof(addr4);</span><br><span class="line">    addr4.sin_family = AF_INET;</span><br><span class="line">    addr4.sin_port = htons(port);</span><br><span class="line">    addr4.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    NSData *address4 = [NSData dataWithBytes:&amp;addr4 length:sizeof(addr4)];</span><br><span class="line">    </span><br><span class="line">    if (kCFSocketSuccess != CFSocketSetAddress(ipv4socket, (__bridge CFDataRef)address4)) &#123;</span><br><span class="line">        NSLog(@&quot;Error setting ipv4 socket address&quot;);</span><br><span class="line">        if (ipv4socket) &#123;</span><br><span class="line">            CFRelease(ipv4socket);</span><br><span class="line">        &#125;</span><br><span class="line">        ipv4socket = NULL;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (port == 0) &#123;</span><br><span class="line">        NSData *addr = (__bridge NSData*)CFSocketCopyAddress(ipv4socket);</span><br><span class="line">        memcpy(&amp;addr4, [addr bytes], [addr length]);</span><br><span class="line">        port = ntohs(addr4.sin_port);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    CFRunLoopRef cfr1 = CFRunLoopGetCurrent();</span><br><span class="line">    CFRunLoopSourceRef src4 = CFSocketCreateRunLoopSource(kCFAllocatorDefault, ipv4socket, 0);</span><br><span class="line">    CFRunLoopAddSource(cfr1, src4, kCFRunLoopCommonModes);</span><br><span class="line">    CFRelease(src4);</span><br><span class="line">    </span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h3><p><strong>CFSocketContext</strong></p>
+<p>是一个结构体，包含了自定义数据和回调函数，可以在其中操作CFSocket对象的具体行为。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    CFIndex	version;</span><br><span class="line">    <span class="keyword">void</span> *	info;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> *(*retain)(<span class="keyword">const</span> <span class="keyword">void</span> *info);</span><br><span class="line">    <span class="keyword">void</span>	(*release)(<span class="keyword">const</span> <span class="keyword">void</span> *info);</span><br><span class="line">    CFStringRef	(*copyDescription)(<span class="keyword">const</span> <span class="keyword">void</span> *info);</span><br><span class="line">&#125; CFSocketContext;</span><br></pre></td></tr></table></figure>
+<p><em>version</em>： 必须是0， 结构体版本号。</p>
+<p><em>info</em>: 指向自定义数据的指针，它会在CFSocket创建的时候与之关联，这个指针会被传递给所有定义在context内的回调方法。</p>
+<p><em>retain</em>: 一个定义在info指针上的retain 回调。可以是NULL。</p>
+<p><em>release</em>： 一个定义在info指针上的relsease回调。可以是NULL。</p>
+<p><em>copyDescription</em>: 一个定义在info指针上的拷贝描述回调。可以是NULL。</p>
+<p><strong>CFSocketCreate</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CFSocketCreate(CFAllocatorRef allocator, </span><br><span class="line">               SInt32 protocolFamily, </span><br><span class="line">               SInt32 socketType, </span><br><span class="line">               SInt32 protocol, </span><br><span class="line">               CFOptionFlags callBackTypes, </span><br><span class="line">               CFSocketCallBack callout, </span><br><span class="line">               <span class="keyword">const</span> CFSocketContext *context);</span><br></pre></td></tr></table></figure>
+<p>创建一个指定协议和类型的CFSocket对象。</p>
+<p><em>allocater</em>： 分配器是用来为新对象分配内存的，传递NULL或者KCFAllocatorDefault 使用当前默认的分配器。</p>
+<p><em>protocolFamily</em>: socket的协议族，如果为负数或者0，则socket默认为PE_INET。</p>
+<p><em>socketType</em>:  所创建的Socket的类型，如果protocolFamily是PE_INET并且socketType是负数或者0，socketType的默认值是SOCK_STREAM。</p>
+<p><em>protocol</em>： socket的协议。如果protocolFamily是PE_INET并且protocol是负数或者0，那么socket的protocol的默认值是IPPROTO_TCP。如果socketType是SOCK_STREAM或者SOCK_DGRAM那么默认为IPPROTO_UDP。</p>
+<p><em>callBackTypes</em>:  一个按位或结合的socket类型，会调起socket的<em>callout</em>.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> CFSocketCallBackType : CFOptionFlags &#123;</span><br><span class="line">    kCFSocketNoCallBack = <span class="number">0</span>,</span><br><span class="line">    kCFSocketReadCallBack = <span class="number">1</span>,</span><br><span class="line">    kCFSocketAcceptCallBack = <span class="number">2</span>,</span><br><span class="line">    kCFSocketDataCallBack = <span class="number">3</span>,</span><br><span class="line">    kCFSocketConnectCallBack = <span class="number">4</span>,</span><br><span class="line">    kCFSocketWriteCallBack = <span class="number">8</span></span><br><span class="line">&#125; CFSocketCallBackType;</span><br></pre></td></tr></table></figure>
+<p><em>callout</em>:  当一种callBackTypes被激活时这个方法被调用。</p>
+<p><em>context</em>：一个保存着CFSocket对象上下文信息的结构体。函数将信息拷贝出结构体之外，所以上下文指向的内存不需要超出函数的调用，可以是NULL。</p>
+<p><strong>setsockopt</strong><code>^参考1^</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> s, </span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">int</span> level, </span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">int</span> optname, </span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">const</span> <span class="keyword">void</span> * optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               socklen_toptlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>用来设置参数 <em>s</em> 所指定的socket状态。参数 <em>level</em> 代表代表预设置的网络层。一般设置为SOL_SOCKET 以存取socket层。参数 <em>optname</em> 代表欲设置的选项：</p>
+<p>​    SO_DEBUG 打开或者关闭排错模式。</p>
+<p>​    SO_REUSEADDR 允许在bind ()过程中本地地址可重复使用</p>
+<p>​    SO_TYPE 返回socket 形态.</p>
+<p>​    SO_ERROR  返回socket 已发生的错误原因</p>
+<p>​    SO_DONTROUTE 送出的数据包不要利用路由设备来传输.</p>
+<p>​    SO_BROADCAST 使用广播方式传送</p>
+<p>​    SO_SNDBUF 设置送出的暂存区大小</p>
+<p>​    SO_RCVBUF  设置接收的暂存区大小</p>
+<p>​    SO_KEEPALIVE 期确定连线是否已终止.</p>
+<p>​    SO_OOBINLINE 当接收到OOB 数据时会马上送至标准输入设备</p>
+<p>​    SO_LINGER：确保数据安全且可靠的传送出去.</p>
+<p>参数 <em>optval</em> 代表欲设置的值, 参数<em>optlen</em> 则为optval 的长度.</p>
+<p>返回值：成功则返回0, 若有错误则返回-1, 错误原因存于errno.</p>
+<p><strong>CFSocketGetNative</strong></p>
+<p>返回系统原生socket， 如果返回值为-1，表示无效的socket</p>
+<p><strong>sockaddr_in6</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> &#123;</span></span><br><span class="line">	<span class="keyword">__uint8_t</span>	sin_len;</span><br><span class="line">	<span class="keyword">sa_family_t</span>	sin_family;</span><br><span class="line">	<span class="keyword">in_port_t</span>	sin_port;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span>	<span class="title">in_addr</span> <span class="title">sin_addr</span>;</span></span><br><span class="line">	<span class="keyword">char</span>		sin_zero[<span class="number">8</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>sin_family</em>: 指协议族，在socket编程中只能是AF_INET。</p>
+<p><em>sin_port</em>: 存储端口号，使用网络字节顺序。</p>
+<p><em>size_zero</em>: 是为了让sockaddr与sockadrr_in 两个数据结构保持大小相同而保留的空字节。</p>
+<p><em>sin_addr</em>:  网络地址。</p>
+<p><em>sin_len</em>: 根据《UNIX Network Programming Volume 1》3.1节中的说法，我们可以不关注这个细节（即可以认为这个sin_len字段存在与否对我们的应用程序是透明的）。这个字段不是每种Linux版本都提供，且POSIX标准中对struct sockaddr_in的定义是否需包含该字段不做要求。</p>
+<h2 id="2-发布Bonjour服务"><a href="#2-发布Bonjour服务" class="headerlink" title="2. 发布Bonjour服务"></a>2. 发布Bonjour服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">-(void)publicBonjour &#123;</span><br><span class="line">    service = [[NSNetService alloc] </span><br><span class="line">               initWithDomain:@&quot;&quot; </span><br><span class="line">               type:@&quot;_riverli._tcp.&quot; </span><br><span class="line">               name:@&quot;riverliBonjour&quot; </span><br><span class="line">               port:port];</span><br><span class="line">    if (service == nil) &#123;</span><br><span class="line">        NSLog(@&quot;NSNetService create failed!&quot;);</span><br><span class="line">        return ;</span><br><span class="line">    &#125;</span><br><span class="line">    service.delegate = self;</span><br><span class="line">    [service publish];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark  NSNetServiceDelegate</span><br><span class="line">- (void)netServiceWillPublish:(NSNetService *)sender &#123;</span><br><span class="line">    NSLog(@&quot;netServiceWillPublish&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)netServiceDidPublish:(NSNetService *)sender &#123;</span><br><span class="line">    NSLog(@&quot;netServiceDidPublish&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary&lt;NSString *, NSNumber *&gt; *)errorDict &#123;</span><br><span class="line">    NSLog(@&quot;didNotPublish&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)netServiceDidStop:(NSNetService *)sender &#123;</span><br><span class="line">    port = 0;</span><br><span class="line">    CFRelease(ipv4socket);</span><br><span class="line">    NSLog(@&quot;netServiceDidStop&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-接受socket-回调"><a href="#3-接受socket-回调" class="headerlink" title="3. 接受socket 回调"></a>3. 接受socket 回调</h2><p>这部分可能为三个步骤：</p>
+<ol>
+<li>在第一步创建的CFSocketCallBack对象中有接收到socket消息的回调函数BonjourServerAcceptCallBack，我们在这个回调函数中拿到当前的Bonjour服务。</li>
+<li>如果调用类型是kCFSocketAcceptCallBack，表示接受到了一个新的连接，在这里我们创建NSStream的读写对象。</li>
+<li>在NSStream的读写对象里，我们接受客户的信息，并将信息发送给客户端。(关于NSStream的介绍可以参考<a href="http://riverli.me/2017/04/25/iOS-NSStream%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">这里</a>)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line">static void BonjourServerAcceptCallBack (CFSocketRef socket, </span><br><span class="line">                                         CFSocketCallBackType type, </span><br><span class="line">                                         CFDataRef address, </span><br><span class="line">                                         const void *data, </span><br><span class="line">                                         void *info) &#123;</span><br><span class="line">    </span><br><span class="line">    Bonjour *server = (__bridge Bonjour*)info;</span><br><span class="line">    if (type == kCFSocketAcceptCallBack) &#123; </span><br><span class="line">        // AcceptCallBack: data is pointer to a CFSocketNativeHandle</span><br><span class="line">        CFSocketNativeHandle socketHandle </span><br><span class="line">            = *(CFSocketNativeHandle *)data;</span><br><span class="line"></span><br><span class="line">        CFReadStreamRef readStream = NULL;</span><br><span class="line">        CFWriteStreamRef writeStream = NULL;</span><br><span class="line">        CFStreamCreatePairWithSocket(kCFAllocatorDefault, </span><br><span class="line">                                     socketHandle, </span><br><span class="line">                                     &amp;readStream, </span><br><span class="line">                                     &amp;writeStream);</span><br><span class="line">        </span><br><span class="line">        if (readStream &amp;&amp; writeStream) &#123;</span><br><span class="line">            CFReadStreamSetProperty</span><br><span class="line">                (readStream, </span><br><span class="line">                 kCFStreamPropertyShouldCloseNativeSocket, </span><br><span class="line">                 kCFBooleanTrue);</span><br><span class="line">            </span><br><span class="line">            CFWriteStreamSetProperty</span><br><span class="line">                (writeStream, </span><br><span class="line">                 kCFStreamPropertyShouldCloseNativeSocket, </span><br><span class="line">                 kCFBooleanTrue);</span><br><span class="line">            </span><br><span class="line">            NSInputStream *is = (__bridge NSInputStream*)readStream;</span><br><span class="line">            NSOutputStream *os = (__bridge NSOutputStream*)writeStream;</span><br><span class="line">            [server handleNewConnectionWithInputStream:is</span><br><span class="line">                                          outputStream:os];</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // encountered failure</span><br><span class="line">            // no need for socket anymore</span><br><span class="line">            close(socketHandle);</span><br><span class="line">        &#125;</span><br><span class="line">        // clean up</span><br><span class="line">        if (readStream) &#123;</span><br><span class="line">            CFRelease(readStream);</span><br><span class="line">        &#125;</span><br><span class="line">        if (writeStream) &#123;</span><br><span class="line">            CFRelease(writeStream);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)handleNewConnectionWithInputStream:(NSInputStream*)istr </span><br><span class="line">                              outputStream:(NSOutputStream*)ostr &#123;</span><br><span class="line">    inputStream = istr;</span><br><span class="line">    outputStream = ostr;</span><br><span class="line">    </span><br><span class="line">    inputStream.delegate = self;</span><br><span class="line">    outputStream.delegate = self;</span><br><span class="line">    </span><br><span class="line">    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] </span><br><span class="line">                           forMode:NSDefaultRunLoopMode];</span><br><span class="line">    // output stream is scheduled in the runloop when it is needed</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    if (inputStream.streamStatus == NSStreamStatusNotOpen) &#123;</span><br><span class="line">        [inputStream open];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (outputStream.streamStatus == NSStreamStatusNotOpen) &#123;</span><br><span class="line">        [outputStream open];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - NSStreamDelegate</span><br><span class="line">- (void)stream:(NSStream *)aStream </span><br><span class="line">   handleEvent:(NSStreamEvent)eventCode &#123;</span><br><span class="line">    </span><br><span class="line">    switch (eventCode) &#123;</span><br><span class="line">        case NSStreamEventHasBytesAvailable:</span><br><span class="line">            if (aStream == inputStream) &#123;</span><br><span class="line">                //接收数据</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        </span><br><span class="line">        case NSStreamEventHasSpaceAvailable: &#123;</span><br><span class="line">            if (aStream == outputStream) &#123;</span><br><span class="line">               //发送数据</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        case NSStreamEventOpenCompleted:</span><br><span class="line">            if (aStream == inputStream) &#123;</span><br><span class="line">                NSLog(@&quot;Input Stream Opened&quot;);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                NSLog(@&quot;Output Stream Opened&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">            </span><br><span class="line">        case NSStreamEventEndEncountered: &#123;</span><br><span class="line">            [aStream close];</span><br><span class="line">            [aStream removeFromRunLoop:[NSRunLoop currentRunLoop] </span><br><span class="line">                               forMode:NSDefaultRunLoopMode];</span><br><span class="line">            break;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        case NSStreamEventErrorOccurred:</span><br><span class="line">            if (aStream == inputStream) &#123;</span><br><span class="line">                NSLog(@&quot;Input error: %@&quot;, [aStream streamError]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                NSLog(@&quot;Output error: %@&quot;, [aStream streamError]);</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">            </span><br><span class="line">        default:</span><br><span class="line">            if (aStream == inputStream) &#123;</span><br><span class="line">                NSLog(@&quot;Input default error: %@&quot;, [aStream streamError]);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                NSLog(@&quot;Output default error: %@&quot;, [aStream streamError]);</span><br><span class="line">            &#125;</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p><a href="http://c.biancheng.net/cpp/html/374.html" target="_blank" rel="noopener">参考一:c语言中文网 </a></p>
+<p><a href="http://blog.csdn.net/slvher/article/details/8856003" target="_blank" rel="noopener">参考二：slvher的博客</a></p>
+<p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/Streams/Streams.html#//apple_ref/doc/uid/10000188-SW1" target="_blank" rel="noopener">参考三：Apple : Stream Programming Guide</a></p>
+<p>参考四：iOS网络高级编程</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

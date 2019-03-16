@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        dispatch_after与performSelectorwithObjectafterDelay比较 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#dispatch-after"><span class="toc-text">dispatch_after</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#performSelector-withObject-afterDelay"><span class="toc-text">performSelector:withObject:afterDelay:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后"><span class="toc-text">最后</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        dispatch_after与performSelectorwithObjectafterDelay比较
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-04-04 10:25:09</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在日常开发中，我们会经常遇到一些延迟执行的需求，通常的实现方式有：</p>
+<ul>
+<li>使用dispatch_after</li>
+<li>使用performSelector:withObject:afterDelay:</li>
+</ul>
+<p>本文主要分析这两种方法使用时候的注意事项以及实现原理<br><a id="more"></a></p>
+<h3 id="dispatch-after"><a href="#dispatch-after" class="headerlink" title="dispatch_after"></a>dispatch_after</h3><p><strong>函数声明：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void dispatch_after(dispatch_time_t when, dispatch_queue_t queue, dispatch_block_t block);</span><br></pre></td></tr></table></figure></p>
+<p><strong>参数解析：</strong><br>when: 时间节点，使用<code>dispatch_time</code> 或者<code>dispatch_walltime</code>创建。<br>queue: block所提交的队列，这个队列由系统强引用，直到block执行完毕。不能为NULL。<br>block: 需要提交的任务，该函数会自动执行<code>Block_copy</code> and <code>Block_release</code>方法。不能为NULL。</p>
+<p><strong>讨论：</strong><br>该方法等到指定的时间节点后异步地将block任务添加到指定的队列。可以将<code>DISPATCH_TIME_NOW</code>传递给when参数，但这种做法不如直接调用<code>dispatch_async</code>。将<code>DISPATCH_TIME_FOREVER</code>传递给when参数是没有任何意义的。</p>
+<p><strong>实现原理：</strong><br>dispatch_after的实现是依赖于定时器<code>dispatch_source_set_timer</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">void dispatch_after_f(dispatch_time_t when, </span><br><span class="line">                      dispatch_queue_t queue, </span><br><span class="line">                      void *ctxt, </span><br><span class="line">                      dispatch_function_t func) &#123;  </span><br><span class="line">    uint64_t delta;</span><br><span class="line">    struct _dispatch_after_time_s *datc = NULL;</span><br><span class="line">    dispatch_source_t ds;</span><br><span class="line"></span><br><span class="line">    // 如果延迟为 0，直接调用 dispatch_async</span><br><span class="line">    delta = _dispatch_timeout(when);</span><br><span class="line">    if (delta == 0) &#123;</span><br><span class="line">        return dispatch_async_f(queue, ctxt, func);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ds = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);</span><br><span class="line">    dispatch_assert(ds);</span><br><span class="line"></span><br><span class="line">    datc = malloc(sizeof(*datc));</span><br><span class="line">    dispatch_assert(datc);</span><br><span class="line">    datc-&gt;datc_ctxt = ctxt;</span><br><span class="line">    datc-&gt;datc_func = func;</span><br><span class="line">    datc-&gt;ds = ds;</span><br><span class="line"></span><br><span class="line">    dispatch_set_context(ds, datc);</span><br><span class="line">    dispatch_source_set_event_handler_f(ds, _dispatch_after_timer_callback);</span><br><span class="line">    dispatch_source_set_timer(ds, when, DISPATCH_TIME_FOREVER, 0);</span><br><span class="line">    dispatch_resume(ds);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先将延迟执行的 block 封装在 <code>_dispatch_after_time_s</code> 这个结构体中，并且作为上下文，与 timer 绑定，然后启动 timer。<br>到时以后，执行 <code>_dispatch_after_timer_callback</code> 回调，并取出上下文中的 block:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> _dispatch_after_timer_callback(<span class="keyword">void</span> *ctxt) &#123;  </span><br><span class="line">    <span class="keyword">struct</span> _dispatch_after_time_s *datc = ctxt;</span><br><span class="line">    _dispatch_client_callout(datc-&gt;datc_ctxt, datc-&gt;datc_func);</span><br><span class="line">    <span class="comment">// 清理工作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="performSelector-withObject-afterDelay"><a href="#performSelector-withObject-afterDelay" class="headerlink" title="performSelector:withObject:afterDelay:"></a>performSelector:withObject:afterDelay:</h3><p><strong>函数声明：</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)performSelector:(SEL)aSelector </span><br><span class="line">             withObject:(<span class="keyword">id</span>)anArgument </span><br><span class="line">             afterDelay:(<span class="built_in">NSTimeInterval</span>)delay;</span><br></pre></td></tr></table></figure></p>
+<p><strong>参数解析：</strong><br>aSelector: 使用<code>Selector</code>将被调用的方法。该方法没有返回值，参数是id类型或者没有参数。<br>anArgument: 方法被调用的时候传递给方法的参数，如果方法没有参数，传nil。<br>delay: 方法被调用之前等待的最小时间。指定为0，方法可能不会被立即执行。方法会在当前线程的runloop循环中排队并尽可能快的被执行。</p>
+<p><strong>讨论：</strong><br>该方法在当前线程的runloop上设置一个定时器来执行<code>aSelector</code>。定时器默认在<code>NSDefaultRunLoopMode</code>模式下执行。当时间到时，当前线程尝试从runloop队列中取出这个方法并执行。如果runloop处于<code>NSDefaultRunLoopMode</code>模式下，方法顺利被执行，否则定时器一直等到runloop处于<code>NSDefaultRunLoopMode</code>下才执行。<br>我们可以使用<code>performSelector:withObject:afterDelay:inModes:</code>方法来指定定时器在哪些mode下执行。\<br>使用<code>performSelectorOnMainThread:withObject:waitUntilDone:</code>和<code>performSelectorOnMainThread:withObject:waitUntilDone:modes:</code>方法来确保在主线程中执行。\<br>使用<code>cancelPreviousPerformRequestsWithTarget:</code>和<code>cancelPreviousPerformRequestsWithTarget:selector:object:</code>方法来取消特定的任务。\<br><strong>注意：</strong>该方法的执行依赖于runloop，子线程默认情况下并不开启runloop，如果你需要在这种情况下使用延迟功能，应当考虑是否开启runloop，还是使用dispatch_after来实现。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://bestswifter.com/deep-gcd/#dispatch_after" target="_blank" rel="noopener">深入理解GCD</a><br><a href="https://developer.apple.com/documentation/objectivec/nsobject/1416176-performselector" target="_blank" rel="noopener">performSelector:withObject:afterDelay:</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>本博客没有做评论系统，如果您对文章有意见，请到<a href="http://riverli.me/about/">关于我</a>页面获取我的联系方式。<br>另外，如果您觉得本文对你有帮助，可以友情给予鼓励，谢谢！<br><img src="https://ws1.sinaimg.cn/mw690/d3681d85ly1fq0faf7eimj20u00u0q3t.jpg" alt="微信扫码赏赞"></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

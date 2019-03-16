@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        HTTPS - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP缺点"><span class="toc-text">HTTP缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS中的加密方式"><span class="toc-text">HTTPS中的加密方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL链接建立流程"><span class="toc-text">SSL链接建立流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#证书验证流程"><span class="toc-text">证书验证流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        HTTPS
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-18 20:06:48</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#HTTPS" title="HTTPS">HTTPS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>HTTPS并非是应用层的一种新协议。只是HTTP通信接口部分用SSL和TSL协议代替而已。通常，HTTP直接和TCP通信。当使用SSL时，则演变成先和SSL通信，再由SSL和TCP通信了。简言之，所谓HTTPS，其实就是身披SSL协议这层外壳的HTTP。</p>
+<h3 id="HTTP缺点"><a href="#HTTP缺点" class="headerlink" title="HTTP缺点"></a>HTTP缺点</h3><ul>
+<li>通信使用明文（不加密），内容可能会被窃听。</li>
+<li>不验证通信方的身份，因此有可能遭遇伪装。</li>
+<li>无法证明报文的完整性，所以有可能已遭篡改。<a id="more"></a>
+</li>
+</ul>
+<h3 id="HTTPS中的加密方式"><a href="#HTTPS中的加密方式" class="headerlink" title="HTTPS中的加密方式"></a>HTTPS中的加密方式</h3><p><strong>共享密钥加密:</strong> 加密和解密同用一个密钥的方式称为共享加密，也被叫做<code>对称密钥加密</code> 或<code>对称加密</code>。</p>
+<p><strong>公开密钥加密:</strong> 使用一对非对称的密钥。一把叫做私有密钥，另一把叫做公开密钥。私有密钥不能让其他任何人知道, 而公开密钥则可以随意发布，任何人都可获得。又称为<code>非对称密钥加密</code> 或 <code>非对称加密</code>。</p>
+<p>在交换密钥环节使用 <strong>公开密钥加密</strong> 方式、之后的建立通信交换报文阶段则使用 <strong>共享密钥加密</strong> 方式。</p>
+<p>所以</p>
+<p>在交换密钥环节使用 <strong>对称加密</strong>方式，之后建立通信交换报文阶段则使用<strong>非对称密码</strong>方式。</p>
+<ol>
+<li>使用公开密钥加密方式安全地交换在稍后共享密钥加密中要使用的密钥。</li>
+<li>确保交换的密钥是安全的前提下，使用共享密钥加密方式进行通信。</li>
+</ol>
+<h3 id="SSL链接建立流程"><a href="#SSL链接建立流程" class="headerlink" title="SSL链接建立流程"></a>SSL链接建立流程</h3><p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftco7vqeutj20ca0e7jsr.jpg" alt="SSL"></p>
+<ol>
+<li><p>客户端先向服务器发出加密通信请求，这被叫做ClientHello请求。该请求携带如下信息。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 支持的协议版本，比如<span class="type">TLS1</span>.<span class="number">0</span>版。</span><br><span class="line"><span class="number">2</span>. 一个客户端生成的随机数，稍后用户生成“对话密钥”。</span><br><span class="line"><span class="number">3</span>. 支持的加密方法，比如<span class="type">RSA</span>公钥加密。</span><br><span class="line"><span class="number">4</span>. 支持的压缩方法。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>服务器收到客户端请求后，向客户端发出回应。这个叫做SeverHello，服务器的回应包含以下内容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 确认使用的加密通信协议版本。</span><br><span class="line"><span class="number">2</span>. 一个服务器生成的随机数。</span><br><span class="line"><span class="number">3</span>. 确认使用的加密方法。</span><br><span class="line"><span class="number">4</span>. 服务器证书。</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong> 如果服务器需要确认客户端的身份，就会再包含一项请求，要求客户端提供“客户端证书”。</p>
+</li>
+<li><p>客户端收的到服务器的回应以后，首先验证服务器证书。如果证书不是可信机构颁布、或者证书中的域名与实际域名不一致、或者证书已经过期，就会向访问者显示一个警告，由其选择是否还要继续通信。</p>
+<p>如果证书没有问题，客户端就会从证书中取出公钥，然后向服务器发生下面三项信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 一个随机数。该随机数使用服务器公钥加密，防止被窃听。</span><br><span class="line"><span class="number">2</span>. 编码改变通知，表示随后的信息都将用双方上商定的加密方法和密钥发送。</span><br><span class="line"><span class="number">3</span>. 客户端握手结束通知，表示客户端握手阶段已经结束。这一项也是前面发送的所有内容的hash值，用来供服务器校验。</span><br></pre></td></tr></table></figure>
+<p>上面第一项随机数，是整个握手阶段出现的第三个随机数，又称为“pre-master-key”。有了它以后，客户端和服务器同时有了三个随机数，接着双方就用事先商定的加密方法，各自生成本次会话所用的同一把“会话密钥”。</p>
+<p>为什么要用三个随机数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;不管是客户端还是服务器，都需要随机数，这样生成的密钥才不会每次都一样。由于SSL协议中证书是静态的，因此十分有必要引入一种随机因素来保证协商出来的密钥的随机性。</span><br><span class="line"></span><br><span class="line">对于RSA密钥交换算法来说，pre-master-key本身就是一个随机数，再加上hello消息中的随机，三个随机数通过一个密钥导出器最终导出一个对称密钥。</span><br><span class="line"></span><br><span class="line">pre master的存在在于SSL协议不信任每个主机都能产生完全随机的随机数，如果随机数不随机，那么pre master secret就有可能被猜出来，那么仅适用pre master secret作为密钥就不合适了，因此必须引入新的随机因素，那么客户端和服务器加上pre master secret三个随机数一同生成的密钥就不容易被猜出了，一个伪随机可能完全不随机，可是是三个伪随机就十分接近随机了，每增加一个自由度，随机性增加的可不是一。&quot;</span><br></pre></td></tr></table></figure>
+<p>此外，如果前一步，服务器要求客户端证书，客户端会在这一步发送证书及相关信息。</p>
+</li>
+<li><p>服务器收到客户端的第三个随机数pre-master key之后，计算生成本次会话所用的”会话密钥”。然后，向客户端最后发送下面信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</span><br><span class="line">2. 服务器握手结束通知，表示服务器的握手阶段已经结束。这一项同时也是前面发送的所有内容的hash值，用来供客户端校验。</span><br></pre></td></tr></table></figure>
+<p>至此，整个握手阶段全部结束。接下来，客户端与服务器进入加密通信，就完全是使用普通的HTTP协议，只不过用”会话密钥”加密内容。</p>
+</li>
+</ol>
+<h3 id="证书验证流程"><a href="#证书验证流程" class="headerlink" title="证书验证流程"></a>证书验证流程</h3><p>我SSL连接过程中，第二步客户端从服务端接收到证书，如何验证证书的有效性呢？ 这里需要引出一个第三方机构，数字证书认证机构，这个机构是值得信赖的。证书验证流程如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1fte330afjtj21120m6tc7.jpg" alt="证书校验"></p>
+<p>客户端一般会内置数字认证机构的公开密钥。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a></p>
+<p><a href="https://item.jd.com/11449491.html" target="_blank" rel="noopener">图解HTTP</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        C数组与指针 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#指针"><span class="toc-text">指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针与一维数组"><span class="toc-text">指针与一维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针与二维数组"><span class="toc-text">指针与二维数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-text">demo</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a>
+</li></div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        C数组与指针
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-10-08 00:47:35</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#C" title="C">C</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><p>例子1：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;a;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a = "</span> &lt;&lt; a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;a = "</span> &lt;&lt; &amp;a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"p = "</span> &lt;&lt; p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;p= "</span> &lt;&lt; &amp;p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*p= "</span> &lt;&lt; *p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">a = 5</span></span><br><span class="line"><span class="comment">&amp;a = 0x7fff5fbff63c</span></span><br><span class="line"><span class="comment">p = 0x7fff5fbff63c</span></span><br><span class="line"><span class="comment">&amp;p= 0x7fff5fbff630</span></span><br><span class="line"><span class="comment">*p= 5</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//以下两句会报错</span></span><br><span class="line"><span class="comment">//Cannot take the address of an rvalue of type 'int *'</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;&amp;a = "</span> &lt;&lt; &amp;(&amp;a) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;&amp;p= "</span> &lt;&lt; &amp;(&amp;p) &lt;&lt; <span class="string">"\n"</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>从例子1中可以看出：</p>
+<pre><code>1. 指针是一个变量，其值为另一个变量的地址，即：内存位置的直接地址。
+ 2. p是一个指针变量，其值是变量a的地址。
+  3. &amp;是取地址符。
+  4. \* 取回指针变量所指定地址的变量的值。
+</code></pre><h2 id="指针与一维数组"><a href="#指针与一维数组" class="headerlink" title="指针与一维数组"></a>指针与一维数组</h2><p>例子2：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;; </span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a = "</span> &lt;&lt; a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;a[0] = "</span> &lt;&lt; &amp;a[<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a[0] = "</span> &lt;&lt; a[<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*a = "</span> &lt;&lt; *a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">a	= 0x7fff5fbff62c</span></span><br><span class="line"><span class="comment">&amp;a[0]	= 0x7fff5fbff62c</span></span><br><span class="line"><span class="comment">a[0] = 1</span></span><br><span class="line"><span class="comment">*a = 1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *p = a;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"p = "</span> &lt;&lt; p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*p = "</span> &lt;&lt; *p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*(p+1) = "</span> &lt;&lt; *(p+<span class="number">1</span>) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*(p+2) = "</span> &lt;&lt; *(p+<span class="number">2</span>) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">p = 0x7fff5fbff62c</span></span><br><span class="line"><span class="comment">*p = 1</span></span><br><span class="line"><span class="comment">*(p+1) = 2</span></span><br><span class="line"><span class="comment">*(p+2) = 3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>从上面代码可以看出：</p>
+<ol>
+<li>一维数组的变量名的值是该数组第一个元素的地址。</li>
+</ol>
+<h2 id="指针与二维数组"><a href="#指针与二维数组" class="headerlink" title="指针与二维数组"></a>指针与二维数组</h2><p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1fka47a0p2kj20qo09e0sy.jpg" alt="二维数组示意图"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">3</span>][<span class="number">4</span>] = &#123;</span><br><span class="line">    &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;,</span><br><span class="line">    &#123;<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;,</span><br><span class="line">    &#123;<span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a = "</span> &lt;&lt; a &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a[0] = "</span> &lt;&lt; a[<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"&amp;a[0][0] = "</span> &lt;&lt; &amp;a[<span class="number">0</span>][<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a[0][0] = "</span> &lt;&lt; a[<span class="number">0</span>][<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">a = 0x7fff5fbff600</span></span><br><span class="line"><span class="comment">a[0] = 0x7fff5fbff600</span></span><br><span class="line"><span class="comment">&amp;a[0][0] = 0x7fff5fbff600</span></span><br><span class="line"><span class="comment">a[0][0] = 1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(a) = "</span> &lt;&lt; <span class="keyword">sizeof</span>(a) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"sizeof(a[0]) = "</span> &lt;&lt; <span class="keyword">sizeof</span>(a[<span class="number">0</span>]) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">sizeof(a) = 48</span></span><br><span class="line"><span class="comment">sizeof(a[0]) = 16</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> (*p)[<span class="number">4</span>] = a;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"p = "</span> &lt;&lt; p &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"p[0] = "</span> &lt;&lt; p[<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*p[0] = "</span> &lt;&lt; *p[<span class="number">0</span>] &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将二维转为一维</span></span><br><span class="line"><span class="keyword">int</span> *b = (<span class="keyword">int</span> *)a;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"b = "</span> &lt;&lt; b &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*b = "</span> &lt;&lt; *b &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*(b+1) = "</span> &lt;&lt; *(b+<span class="number">1</span>) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"*(b+2) = "</span> &lt;&lt; *(b+<span class="number">2</span>) &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="comment">//通过一维数组访问二维数组中的i行n列</span></span><br><span class="line">*(b + i*rowCount + n);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//参数</span></span><br><span class="line"><span class="comment">// int *b = (int *)a;</span></span><br><span class="line"><span class="comment">// test(b, 3, 4);</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> row, <span class="keyword">int</span> column)</span></span>;</span><br><span class="line"><span class="comment">// test(a, 3, 4);</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> a[][<span class="number">4</span>], <span class="keyword">int</span> row, <span class="keyword">int</span> colum)</span></span>;</span><br><span class="line"><span class="comment">// 错误</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> **a, <span class="keyword">int</span> row, <span class="keyword">int</span> column)</span></span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在二维数组中，数组名a，a[0]的值都是第一个元素a[0][0]的地址。</li>
+<li>二维数组在内存中也是按顺序排列的。</li>
+<li>二维数组在C语言中是一维数组，且每个元素又指向一个一维数组。</li>
+</ol>
+<h2 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h2><p><a href="https://pan.baidu.com/s/1gfeUHMz" target="_blank" rel="noopener">百度云盘</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.csdn.net/rogerhe/article/details/6410993" target="_blank" rel="noopener">理解lvalue和rvalue</a></p>
+<p><a href="http://www.cnblogs.com/douzi2/p/5087892.html" target="_blank" rel="noopener">指针变量、普通变量、内存和地址的全面对比</a></p>
+<p>《C和指针》</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

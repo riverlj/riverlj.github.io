@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        dispatch_async的block中是否该使用_weak self - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#问题分析"><span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解析"><span class="toc-text">解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#究竟发生了什么？"><span class="toc-text">究竟发生了什么？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#举例"><span class="toc-text">举例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        dispatch_async的block中是否该使用_weak self
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-02-19 22:15:07</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#block, weak, dispatch_async" title="block, weak, dispatch_async">block, weak, dispatch_async</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h1><p>我看过很多文章关于在dispatch_async的block里面使用_weak self, 但是让我疑惑的是，以下代码是否需要必须使用_weak self, 因为我也看到了很多观点说，在有些情况下不需要使用__weak self.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">self.myQueue = dispatch_queue_create(&quot;com.biview.core_data&quot;, NULL);</span><br><span class="line"></span><br><span class="line">dispatch_async(self.myQueue, ^(void)&#123;</span><br><span class="line">	if(!self.var1)&#123;</span><br><span class="line">		self.var1 = </span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	dispatch_async(dispatch_get_main_queue(), ^(void)&#123;</span><br><span class="line">		if([self.var2 superview]) &#123;</span><br><span class="line">			[self.var2 removeFromSuperview];</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		[self.Label setText:text];</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>针对上面的问题，我们假设：self是指向UIViewController的对象指针。<br><strong>考虑以下几点：</strong></p>
+<ul>
+<li>UIViewController是”UIkit”对象，UIKit对象不应该在非主线程发送消息，也就是说，这些方法只能在主线程中执行。</li>
+<li>当一个block被添加进一个同步或者异步队列，这个block最终都会被执行，除非在执行到它之前应用程序被杀死。</li>
+<li>当block被拷贝的时候，strong类型的指针会被retained, 当block执行完毕之后被销毁的时候才会执行released操作。</li>
+<li>weak类型的指针不会被retained和released。</li>
+</ul>
+<p>在上面的例子中，self是在主线程的队列中，不必担心有任何bug产生。</p>
+<h2 id="究竟发生了什么？"><a href="#究竟发生了什么？" class="headerlink" title="究竟发生了什么？"></a>究竟发生了什么？</h2><p>当在dispatch的异步队列的block中捕获到self时，self会被执行retained操作，当block执行完毕后self执行released操作。<br>这意味着：当block执行完毕后，self的生命周期才会结束。上例中的第二个block是在主线程的队列中，它保证了self一直存活着当这个block被执行的时候。<br>在程序中存在潜在危险的操作是：延长 self 的生命周期。</p>
+<p>如果你明确的不希望延长UIViewController对象的生命周期，而是当block被执行的时候去检查UIViewController对象到底是否存在，你可以使用 _weak self. 需要注意的是block最后都会被执行，不管UIViewController是否存活还是已经被释放了。</p>
+<p>如果你希望如果UIViewController已经被释放了，那么block不做任何事情，可以写成 _weak self.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MyController * _weak weakSelf = self;</span><br><span class="line">dispatch_async(queue, ^&#123;</span><br><span class="line">	MyController *strongSelf = weakSelf;</span><br><span class="line">	if(strongSelf)&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;else &#123;</span><br><span class="line">		// self has been deallocted in the meantime.</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>不能在非主线程中向UIKit对象发送消息。</strong><br>另一个细微的错误可能发生在UIKit对象执行方法在非主线程。</p>
+<p>如果block在异步线程中捕获了一个UIKit对象，可能发生的是：block 是最后一个持有改UIKit的强引用。当block执行完的时候，UIKit对象将被release，因为是UIKit对象的最后一个强引用，所有该UIKit对象将被释放，但是，释放操作发生在block所执行的线程-它不是主线程，所有，风险即将发生，UIKit对象的dealloc方法将被调用(UI 对象应该在主线程中被回收，因为在它们的 dealloc 方法被调用回收的时候，可能会去改变 view 的结构关系，而如我们所知，这种操作应该放在主线程来进行，见参考二)。</p>
+<p>避免这个错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">UIViewController *strongUIKitPointer = ...</span><br><span class="line">dispatch_async(non_main_queue), ^&#123;</span><br><span class="line">	...//do someting</span><br><span class="line">	dispatch(dispatch_get_main_queue(),^&#123;</span><br><span class="line">		[strongUIkitPointer self]; //self is a method, too -doing nothing.</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>双向强引用发生在：一个强类型对象A持有一个强类型对象B，并且对象B强引用对象A。“Block”是一个强引用对象。</p>
+<p>人为的双向强引用举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef void(^my_completion_block_t)(NSArray* result);</span><br><span class="line"></span><br><span class="line">@interface UserViewController : UIViewController</span><br><span class="line">@property (nonatomic, copy) my_completion_block_t completion;</span><br><span class="line">@property (nonatomic) NSArray *users;</span><br></pre></td></tr></table></figure></p>
+<p>on “UserViewController.m”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.completion = ^(NSArray *users)&#123;</span><br><span class="line">self.users = users;</span><br><span class="line">&#125;</span><br><span class="line">[self fetchUsers];</span><br></pre></td></tr></table></figure></p>
+<p>这是一个典型了强引用循环。UserViewController 有一个Block类型的属性，所有UserViewController对象强引用着block。而block捕获到self的时候执行强引用操作，所有形成了强引用循环。</p>
+<p>解决方式：</p>
+<ol>
+<li><p>使用_weak 指针指向self.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">UserViewController * _weak weakSelf = self;</span><br><span class="line"></span><br><span class="line">self.completion = ^(NSArray *user)&#123;</span><br><span class="line">	UsersViewController *strongSelf = weakSelf;</span><br><span class="line">	if(strongSelf)&#123;</span><br><span class="line">		strongSelf.users = users;</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		// the view controller does not exist anymore.</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<strong>block 指针执行self, 执行完毕后将</strong>block 指针指向nil.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">UsersViewController *__block blockSelf = self;</span><br><span class="line">self.completion=^(NSArayy *users)&#123;</span><br><span class="line">	self.completion = ^(NSArray *users)&#123;</span><br><span class="line">		blockSelf.users = users;</span><br><span class="line">		blockSelf = nil;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>–完–</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="http://stackoverflow.com/questions/21987067/using-weak-self-in-dispatch-async-function#comment33353782_21988407" target="_blank" rel="noopener">stack overflow</a></li>
+<li><a href="https://objccn.io/issue-2-4/" target="_blank" rel="noopener">objc-cn</a></li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

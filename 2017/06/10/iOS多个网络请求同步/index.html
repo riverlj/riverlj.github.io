@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS多个网络请求同步 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#问题描述"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法一-使用GCD和信号量"><span class="toc-text">方法一 使用GCD和信号量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法二-使用计数器的方式"><span class="toc-text">方法二 使用计数器的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法三-使用GCD-group的enter、leave、notify方法"><span class="toc-text">方法三 使用GCD group的enter、leave、notify方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法四-BlockOperation"><span class="toc-text">方法四 BlockOperation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS多个网络请求同步
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-06-10 15:28:16</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#iOS 网络" title="iOS 网络">iOS 网络</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>大多数前端开发步骤：</p>
+<ol>
+<li>从服务端获取数据</li>
+<li>数据整理</li>
+<li>填充到界面上<br>在某些特殊的情况下，界面上所需要展示的数据是从多个接口里获取的，并且这些数据相互关联，需要客户端进行处理才能展示给用户。那么这里的问题是：如何知道请求都回来了。<br>问题可简化为：界面刷新的操作需要在接口A，B，C的数据都返回来了才能进行。<br><strong>注：</strong> 以下使用的网络框架是swift中的Alamofire</li>
+</ol>
+<a id="more"></a>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="方法一-使用GCD和信号量"><a href="#方法一-使用GCD和信号量" class="headerlink" title="方法一 使用GCD和信号量"></a>方法一 使用GCD和信号量</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">requestNetAction</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> group = <span class="type">DispatchGroup</span>();</span><br><span class="line">        <span class="keyword">let</span>  queueRequest = <span class="type">DispatchQueue</span>.global();</span><br><span class="line">        </span><br><span class="line">        queueRequest.async(group:group)&#123;</span><br><span class="line">            <span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>);</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"第1个"</span>)</span><br><span class="line">            <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">                semaphore.signal()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> result = semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line">            <span class="keyword">if</span>(result == <span class="type">DispatchTimeoutResult</span>.success)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"第1个请求回来"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queueRequest.async(group:group)&#123;</span><br><span class="line">            <span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>);</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"第2个"</span>)</span><br><span class="line">            <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">                semaphore.signal()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> result = semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line">            <span class="keyword">if</span>(result == <span class="type">DispatchTimeoutResult</span>.success)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"第2个请求回来"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queueRequest.async(group:group)&#123;</span><br><span class="line">            <span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>);</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"第3个"</span>)</span><br><span class="line">            <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">                semaphore.signal()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> result = semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line">            <span class="keyword">if</span>(result == <span class="type">DispatchTimeoutResult</span>.success)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"第3个请求回来"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        group.notify(queue: queueRequest)&#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"请求结束"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"其他任务"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方法二-使用计数器的方式"><a href="#方法二-使用计数器的方式" class="headerlink" title="方法二 使用计数器的方式"></a>方法二 使用计数器的方式</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">requestNetAction</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> array = [<span class="string">"https://httpbin.org/get"</span>,</span><br><span class="line">                     <span class="string">"http://test.api.wukongtv.com/setting/init"</span>,</span><br><span class="line">                     <span class="string">"http://test.api.wukongtv.com/setting/ad"</span>]</span><br><span class="line">        </span><br><span class="line">        sendBatchRequests(_requests: array) &#123; </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"请求结束"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"其他任务"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sendBatchRequests</span><span class="params">(_requests:Array&lt;String&gt;, completionHandler: @escaping <span class="params">()</span></span></span>-&gt;()) &#123;</span><br><span class="line">        <span class="keyword">var</span> finshCount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">let</span> allTaskCount = _requests.<span class="built_in">count</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global();</span><br><span class="line">        queue.async &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"+++++"</span>+<span class="type">Thread</span>.current.description)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"开始发出请求"</span>)</span><br><span class="line">            <span class="keyword">for</span> request <span class="keyword">in</span> _requests &#123;</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"-----"</span>+<span class="type">Thread</span>.current.description)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"发出请求:"</span> + request.description)</span><br><span class="line">                <span class="type">Alamofire</span>.request(request).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"*****"</span>+<span class="type">Thread</span>.current.description)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"收到请求"</span> + (response.request?.description)! )</span><br><span class="line">                    finshCount += <span class="number">1</span></span><br><span class="line">                    <span class="keyword">if</span> (finshCount == allTaskCount)&#123;</span><br><span class="line">                        completionHandler()</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方法三-使用GCD-group的enter、leave、notify方法"><a href="#方法三-使用GCD-group的enter、leave、notify方法" class="headerlink" title="方法三 使用GCD group的enter、leave、notify方法"></a>方法三 使用GCD group的enter、leave、notify方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">requestNetAction</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</span><br><span class="line">        group.enter()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"开始第1个请求"</span>)</span><br><span class="line">        <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"接收第1个请求"</span>)</span><br><span class="line">            group.leave()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        group.enter()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"开始第2个请求"</span>)</span><br><span class="line">        <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"接收第2个请求"</span>)</span><br><span class="line">            group.leave()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        group.enter()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"开始第3个请求"</span>)</span><br><span class="line">        <span class="type">Alamofire</span>.request(<span class="string">"https://httpbin.org/get"</span>).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"接收第3个请求"</span>)</span><br><span class="line">            group.leave()</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        group.notify(queue: <span class="type">DispatchQueue</span>.main) &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"任务结束"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"接着往下跑"</span>)</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方法四-BlockOperation"><a href="#方法四-BlockOperation" class="headerlink" title="方法四 BlockOperation"></a>方法四 BlockOperation</h2><p>由于网络请求是异步的，导致回调并不是安装BlockOperation的依赖顺序进行执行的，所以使用这种方法还有结合上面的方式进行结果的同步。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@IBAction func requestNetAction(_ sender: Any) &#123;</span><br><span class="line">        </span><br><span class="line">        let queue = OperationQueue()</span><br><span class="line">        </span><br><span class="line">        let blockOpe1 = BlockOperation()</span><br><span class="line">        blockOpe1.addExecutionBlock &#123;</span><br><span class="line">            print(&quot;blockOpe1执行了&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        let blockOpe2 = BlockOperation()</span><br><span class="line">        blockOpe2.addExecutionBlock &#123;</span><br><span class="line">            print(&quot;开始第1个请求&quot;)</span><br><span class="line">            Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</span><br><span class="line">                print(&quot;接收第1个请求&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        let blockOpe3 = BlockOperation()</span><br><span class="line">        blockOpe3.addExecutionBlock &#123;</span><br><span class="line">            print(&quot;开始第2个请求&quot;)</span><br><span class="line">            Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</span><br><span class="line">                print(&quot;接收第2个请求&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">       </span><br><span class="line">        blockOpe1.addDependency(blockOpe2)</span><br><span class="line">        blockOpe1.addDependency(blockOpe3)</span><br><span class="line">        queue.addOperation(blockOpe1)</span><br><span class="line">        queue.addOperation(blockOpe2)</span><br><span class="line">        queue.addOperation(blockOpe3)</span><br><span class="line"></span><br><span class="line">        print(&quot;接着往下跑&quot;)</span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.jianshu.com/p/07eb268c93f2" target="_blank" rel="noopener">GCD－两个网络请求同步问题</a><br><a href="http://www.jianshu.com/p/943dcb9ad632" target="_blank" rel="noopener">iOS中多个网络请求的同步问题总结</a><br><a href="http://www.jianshu.com/p/228403206664" target="_blank" rel="noopener">使用dispatch_group来进行线程同步</a><br><a href="http://www.jianshu.com/p/fc78dab5736f" target="_blank" rel="noopener">Swift 3必看：从使用场景了解GCD新API</a><br><a href="https://github.com/yuantiku/YTKNetwork" target="_blank" rel="noopener">YTKNetwork</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

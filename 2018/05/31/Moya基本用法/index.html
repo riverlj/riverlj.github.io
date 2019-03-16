@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Moya基本用法 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Moya简介"><span class="toc-text">Moya简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本用法"><span class="toc-text">基本用法</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Moya基本用法
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-05-31 11:24:34</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Moya" title="Moya">Moya</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="Moya简介"><a href="#Moya简介" class="headerlink" title="Moya简介"></a>Moya简介</h3><p>一句话来讲，<a href="https://github.com/Moya/Moya" target="_blank" rel="noopener">Moya</a>是对<a href="https://github.com/Alamofire/Alamofire" target="_blank" rel="noopener">Alamofire</a>的封装，让开发人员更加优雅的使用Alamofire。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><ol>
+<li><p>定义接口枚举</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">HFAPI</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> login(<span class="type">String</span>, <span class="type">String</span>, <span class="type">String</span>) <span class="comment">//登录接口</span></span><br><span class="line">    <span class="keyword">case</span> smscode(<span class="type">String</span>)    <span class="comment">//登录，发送验证码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<ol>
+<li><p>拓展枚举并实现TargetType，代码详解如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">HFAPI</span>: <span class="title">TargetType</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> baseURL: <span class="type">URL</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">URL</span>.<span class="keyword">init</span>(string: <span class="string">"接口域名"</span>)!;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> path: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .login:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"login接口路径"</span></span><br><span class="line">        <span class="keyword">case</span> .smscode:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"smscode接口路径"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//请求接口时使用的方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> method: <span class="type">Moya</span>.<span class="type">Method</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .login:</span><br><span class="line">            <span class="keyword">return</span> .post</span><br><span class="line">        <span class="keyword">case</span> .smscode:</span><br><span class="line">            <span class="keyword">return</span> .<span class="keyword">get</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"> 	<span class="comment">//请求接口时对应的请求参数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> task: <span class="type">Task</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> params:[<span class="type">String</span> : <span class="type">Any</span>] = [:]</span><br><span class="line">        </span><br><span class="line">        params[<span class="string">"v"</span>] = <span class="type">ProjectInfo</span>.appVersionWithOutPoint()</span><br><span class="line">        params[<span class="string">"dev"</span>] = <span class="type">ProjectInfo</span>.platform()</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span>.login(<span class="keyword">let</span> smsCodeToken, <span class="keyword">let</span> smsCode, <span class="keyword">let</span> phone):</span><br><span class="line">                params[<span class="string">"smsCodeToken"</span>] = smsCodeToken</span><br><span class="line">                params[<span class="string">"smsCode"</span>] = smsCode</span><br><span class="line">                params[<span class="string">"phone"</span>] = phone</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> .smscode(<span class="keyword">let</span> phone):</span><br><span class="line">                params[<span class="string">"phone"</span>] = phone</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> .requestParameters(parameters: params, encoding: <span class="type">URLEncoding</span>.<span class="keyword">default</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//header信息</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> headers: [<span class="type">String</span> : <span class="type">String</span>]? &#123;</span><br><span class="line">        <span class="keyword">var</span> header: [<span class="type">String</span>:<span class="type">String</span>] = [:]</span><br><span class="line">        <span class="keyword">let</span> token = <span class="type">HFDefault</span>.getToken()</span><br><span class="line">        <span class="keyword">if</span> token.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</span><br><span class="line">            header[<span class="string">"X-Token"</span>] = token</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> header</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//用于单元测试</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> sampleData: <span class="type">Data</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .login:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&#123;\"id\": \"1\", \"first_name\": \"Harry\", \"last_name\": \"Potter\"&#125;"</span>.data(using: <span class="type">String</span>.<span class="type">Encoding</span>.utf8)!</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="type">Data</span>()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>sampleData</code>是用于单元测试的，我们可以使用Xcode自带的单元测试工具来自测，测试用例如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testSmscodeAPI</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> loginProvitder = <span class="type">MoyaProvider</span>&lt;<span class="type">HFAPI</span>&gt;(stubClosure: <span class="type">MoyaProvider</span>.immediatelyStub)</span><br><span class="line">        loginProvitder.request(.smscode(<span class="string">"17755558888"</span>)) &#123; result <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> result &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .success(moyaResponse):</span><br><span class="line">                <span class="keyword">let</span> statusCode = moyaResponse.statusCode <span class="comment">// Int - 200, 401, 500, etc</span></span><br><span class="line">                <span class="keyword">let</span> data = <span class="type">String</span>.<span class="keyword">init</span>(data: moyaResponse.data, encoding: <span class="type">String</span>.<span class="type">Encoding</span>.utf8)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"\(statusCode)"</span>)</span><br><span class="line">                <span class="built_in">print</span>(data ?? <span class="string">"no data"</span>)</span><br><span class="line">            <span class="keyword">case</span> .failure(<span class="number">_</span>):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义超时时间</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">hFApiProvider</span><span class="params">(timeInterval:TimeInterval  = <span class="number">15</span>)</span></span> -&gt; <span class="type">MoyaProvider</span>&lt;<span class="type">HFAPI</span>&gt; &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="type">MoyaProvider</span>&lt;<span class="type">HFAPI</span>&gt;(</span><br><span class="line">           requestClosure: &#123; (endPoint, closure) <span class="keyword">in</span></span><br><span class="line">               <span class="keyword">do</span> &#123;</span><br><span class="line">                   <span class="keyword">var</span> urlRequest = <span class="keyword">try</span> endPoint.urlRequest()</span><br><span class="line">                   urlRequest.timeoutInterval = timeInterval;</span><br><span class="line">                   closure(.success(urlRequest))</span><br><span class="line">               &#125; <span class="keyword">catch</span> <span class="type">MoyaError</span>.requestMapping(<span class="keyword">let</span> url) &#123;</span><br><span class="line">                   closure(.failure(<span class="type">MoyaError</span>.requestMapping(url)))</span><br><span class="line">               &#125; <span class="keyword">catch</span> <span class="type">MoyaError</span>.parameterEncoding(<span class="keyword">let</span> error) &#123;</span><br><span class="line">                   closure(.failure(<span class="type">MoyaError</span>.parameterEncoding(error)))</span><br><span class="line">               &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">                   closure(.failure(<span class="type">MoyaError</span>.underlying(error, <span class="literal">nil</span>)))</span><br><span class="line">               &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>错误处理</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HFNetWork</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(provider: MoyaProvider&lt;HFAPI&gt;,</span></span></span><br><span class="line"><span class="function"><span class="params">                        target: HFAPI,</span></span></span><br><span class="line"><span class="function"><span class="params">                        success successCallback: @escaping <span class="params">(JSON)</span></span></span> -&gt; <span class="type">Void</span>,</span><br><span class="line">                        error errorCallback: @escaping (<span class="type">Int</span>) -&gt; <span class="type">Void</span>,</span><br><span class="line">                        failure failureCallback: @escaping (<span class="type">MoyaError</span>) -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">        provider.request(target) &#123; result <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> result &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .success(response):</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="keyword">let</span> json = <span class="keyword">try</span> <span class="type">JSON</span>(response.filterSuccessfulStatusCodes().mapJSON())</span><br><span class="line">                    successCallback(json)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">catch</span> <span class="keyword">let</span> error &#123;</span><br><span class="line">                    errorCallback((error <span class="keyword">as</span>! <span class="type">MoyaError</span>).response!.statusCode)</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .failure(error):</span><br><span class="line">                failureCallback(error)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HFNetWork</span>.request(provider: <span class="type">HFAPI</span>.hFApiProvider(), target: .smscode(phone), success: &#123; (json) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">let</span> jsonString = json.rawString() ?? <span class="string">""</span></span><br><span class="line">            <span class="keyword">if</span> jsonString.<span class="built_in">count</span> &lt;= <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> responseObject = <span class="type">ResponseModel</span>(<span class="type">JSONString</span>: jsonString)</span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> fResponseObject = responseObject <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="type">HFLog</span>.info(fResponseObject.data)</span><br><span class="line">        &#125;, error: &#123; (errorcode) <span class="keyword">in</span></span><br><span class="line">        &#125;) &#123; (error) <span class="keyword">in</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

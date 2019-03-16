@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        ReactNative实践 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于React-Native"><span class="toc-text">关于React-Native</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搭建一个React-Native项目"><span class="toc-text">搭建一个React-Native项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基础React-Native到现有项目"><span class="toc-text">基础React Native到现有项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真机运行"><span class="toc-text">真机运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#热更新bundle的拆分与合并"><span class="toc-text">热更新bundle的拆分与合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        ReactNative实践
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-06-01 15:33:12</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#ReactNative" title="ReactNative">ReactNative</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="关于React-Native"><a href="#关于React-Native" class="headerlink" title="关于React-Native"></a>关于React-Native</h3><p>React-Native号称是跨平台开发且具有原生应用的体验，早在两年前我曾经尝试过使用React-Native，但是环境搭建过程及其复杂，可参见我之前写的文章：<a href="https://www.jianshu.com/p/66214bc6377f" target="_blank" rel="noopener">iOS现有项目手动集成ReactNative</a>。最近公司新开项目需要实现iOS和Android平台热更新方案，以便快速开展业务。本文用来梳理React-Native在iOS上的一些实践。包括如下内容：<br><a id="more"></a></p>
+<ul>
+<li>搭建一个React-Native项目。</li>
+<li>现有iOS项目中集成React-Native模块。</li>
+<li>以bundle的形式在真机上运行React-Native。</li>
+<li>热更新中bundle的拆分。</li>
+</ul>
+<p>由于React-Native项目一直在更新，不同的版本在使用的过程中会遇到不同的问题，所以强烈建议你使用<a href="https://facebook.github.io/react-native/" target="_blank" rel="noopener">英文官方文档</a>作为开发参考。</p>
+<h3 id="搭建一个React-Native项目"><a href="#搭建一个React-Native项目" class="headerlink" title="搭建一个React-Native项目"></a>搭建一个React-Native项目</h3><p>根据React-Native的官方文档一路能一路很顺利的搭建成功。我这里简单说一下主要步骤，详细可参考：<a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">安装文档</a></p>
+<ol>
+<li><p>安装依赖，包括Node、Watchman、React Native命令行界面、Xcode。</p>
+<ol>
+<li>建议使用<a href="https://brew.sh/" target="_blank" rel="noopener">homebrew</a>安装node和Watchman</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew install node</span><br><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装 React Native CLI</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Xcode，作为一个iOS开发，就不多说了。</li>
+</ol>
+</li>
+<li><p>创建项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init AwesomeProject</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行项目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd AwesomeProject</span><br><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果顺利的话你可以看到你的第一个React-Native项目了。</p>
+</li>
+</ol>
+<h3 id="基础React-Native到现有项目"><a href="#基础React-Native到现有项目" class="headerlink" title="基础React Native到现有项目"></a>基础React Native到现有项目</h3><p>同样我建议你参考<a href="https://facebook.github.io/react-native/docs/integration-with-existing-apps.html" target="_blank" rel="noopener">官方文档</a>，我现有项目是Swift，你可以根据你的项目情况选择对应的安装方法。</p>
+<ol>
+<li>调整项目结构如下，新建iOS目录，将iOS相关的代码都放到iOS目录下。</li>
+<li>在iOS同级目录下创建<code>package.json</code>文件</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"MyReactNativeApp"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"node node_modules/react-native/local-cli/cli.js start"</span>,</span><br><span class="line">    <span class="attr">"postinstall"</span>: <span class="string">"sed -i '' 's/#import &lt;RCTAnimation\\/RCTValueAnimatedNode.h&gt;/#import &lt;React\\/RCTValueAnimatedNode.h&gt;/' ./node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h; sed -i '' 's/#import &lt;fishhook\\/fishhook.h&gt;/#import &lt;React\\/fishhook.h&gt;/' ./node_modules/react-native/Libraries/WebSocket/RCTReconnectingWebSocket.m"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"react"</span>: <span class="string">"^16.4.0"</span>,</span><br><span class="line">    <span class="attr">"react-native"</span>: <span class="string">"^0.55.4"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装yarn</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install yarn</span><br></pre></td></tr></table></figure>
+<ol>
+<li>安装React-native</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react-native</span><br></pre></td></tr></table></figure>
+<p>如果出现警告</p>
+<p><code>warning &quot;react-native@0.52.2&quot; has unmet peer dependency &quot;react@16.2.0&quot;.</code></p>
+<p>则你需要安装React</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add react@version_printed_above // version_printed_above 具体版本号</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在iOS目录里添加podfile文件</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> Uncomment the next line to define a global platform for your project</span><br><span class="line">platform :ios, '9.0'</span><br><span class="line"></span><br><span class="line">target 'ReactDemo' do</span><br><span class="line"><span class="meta">  #</span> Comment the next line if you're not using Swift and don't want to use dynamic frameworks</span><br><span class="line">  use_frameworks!</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span> Pods for ReactDemo</span><br><span class="line"></span><br><span class="line">pod 'React', :path =&gt; '../node_modules/react-native', :subspecs =&gt; [</span><br><span class="line">'Core',</span><br><span class="line">'CxxBridge', # Include this for RN &gt;= 0.47</span><br><span class="line">'DevSupport', # Include this to enable In-App Devmenu if RN &gt;= 0.43</span><br><span class="line">'RCTText',</span><br><span class="line">'RCTNetwork',</span><br><span class="line">'RCTWebSocket', # needed for debugging</span><br><span class="line"> Add any other subspecs you want to use in your project</span><br><span class="line">]</span><br><span class="line">pod 'yoga', :path =&gt; '../node_modules/react-native/ReactCommon/yoga'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> Third party deps podspec link</span><br><span class="line">pod 'DoubleConversion', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'</span><br><span class="line">pod 'glog', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/glog.podspec'</span><br><span class="line">pod 'Folly', :podspec =&gt; '../node_modules/react-native/third-party-podspecs/Folly.podspec'</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  target 'ReactDemoTests' do</span><br><span class="line">    inherit! :search_paths</span><br><span class="line">    # Pods for testing</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">  target 'ReactDemoUITests' do</span><br><span class="line">    inherit! :search_paths</span><br><span class="line">    # Pods for testing</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def fix_cplusplus_header_compiler_error</span><br><span class="line">    filepath = '../node_modules/react-native/React/Base/Surface/SurfaceHostingView/RCTSurfaceSizeMeasureMode.h'</span><br><span class="line">    </span><br><span class="line">    contents = []</span><br><span class="line">    </span><br><span class="line">    file = File.open(filepath, 'r')</span><br><span class="line">    file.each_line do | line |</span><br><span class="line">        contents &lt;&lt; line</span><br><span class="line">    end</span><br><span class="line">    file.close</span><br><span class="line">    </span><br><span class="line">    if contents[32].include? "&amp;"</span><br><span class="line">        contents.insert(26, "#ifdef __cplusplus")</span><br><span class="line">        contents[36] = "#endif"</span><br><span class="line">        </span><br><span class="line">        file = File.open(filepath, 'w') do |f|</span><br><span class="line">            f.puts(contents)</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def fix_unused_yoga_headers</span><br><span class="line">    filepath = './Pods/Target Support Files/yoga/yoga-umbrella.h'</span><br><span class="line">    </span><br><span class="line">    contents = []</span><br><span class="line">    </span><br><span class="line">    file = File.open(filepath, 'r')</span><br><span class="line">    file.each_line do | line |</span><br><span class="line">        contents &lt;&lt; line</span><br><span class="line">    end</span><br><span class="line">    file.close</span><br><span class="line">    </span><br><span class="line">    if contents[12].include? "Utils.h"</span><br><span class="line">        contents.delete_at(15) # #import "YGNode.h"</span><br><span class="line">        contents.delete_at(15) # #import "YGNodePrint.h"</span><br><span class="line">        contents.delete_at(15) # #import "Yoga-internal.h"</span><br><span class="line">        contents.delete_at(12) # #import "Utils.h"</span><br><span class="line">        </span><br><span class="line">        file = File.open(filepath, 'w') do |f|</span><br><span class="line">            f.puts(contents)</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def react_native_fix</span><br><span class="line">    fix_cplusplus_header_compiler_error</span><br><span class="line">    fix_unused_yoga_headers</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">post_install do |installer|</span><br><span class="line">    react_native_fix</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>执行pod install命令。</p>
+<ol>
+<li>在iOS同级目录创建index.ios.js，写入相关内容。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;AppRegistry, StyleSheet, Text, View&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RNHighScores</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">var</span> contents = <span class="keyword">this</span>.props[<span class="string">'scores'</span>].map(<span class="function">(<span class="params">score</span>) =&gt;</span> (</span><br><span class="line">      &lt;Text key=&#123;score.name&#125;&gt;</span><br><span class="line">        &#123;score.name&#125;:&#123;score.value&#125;</span><br><span class="line">        &#123;<span class="string">'\n'</span>&#125;</span><br><span class="line">      &lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">    ));</span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">      &lt;View style=&#123;styles.container&#125;&gt;</span></span><br><span class="line"><span class="regexp">        &lt;Text style=&#123;styles.highScoresTitle&#125;&gt;2048 High Scores!&lt;/</span>Text&gt;</span><br><span class="line">        &lt;Text style=&#123;styles.scores&#125;&gt;&#123;contents&#125;&lt;<span class="regexp">/Text&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>View&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> styles = StyleSheet.create(&#123;</span><br><span class="line">  container: &#123;</span><br><span class="line">    flex: <span class="number">1</span>,</span><br><span class="line">    justifyContent: <span class="string">'center'</span>,</span><br><span class="line">    alignItems: <span class="string">'center'</span>,</span><br><span class="line">    backgroundColor: <span class="string">'#FFFFFF'</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  highScoresTitle: &#123;</span><br><span class="line">    fontSize: <span class="number">20</span>,</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    margin: <span class="number">10</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  scores: &#123;</span><br><span class="line">    textAlign: <span class="string">'center'</span>,</span><br><span class="line">    color: <span class="string">'#333333'</span>,</span><br><span class="line">    marginBottom: <span class="number">5</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Module name</span></span><br><span class="line">AppRegistry.registerComponent(<span class="string">'RNHighScores'</span>, () =&gt; RNHighScores);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在iOS项目中调用React Native模块</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">highScoreButtonTapped</span><span class="params">(sender : UIButton)</span></span> &#123;</span><br><span class="line">  <span class="type">NSLog</span>(<span class="string">"Hello"</span>)</span><br><span class="line">  <span class="keyword">let</span> jsCodeLocation = <span class="type">URL</span>(string: <span class="string">"http://localhost:8081/index.bundle?platform=ios"</span>)</span><br><span class="line">  <span class="keyword">let</span> mockData:<span class="type">NSDictionary</span> = [<span class="string">"scores"</span>:</span><br><span class="line">      [</span><br><span class="line">          [<span class="string">"name"</span>:<span class="string">"Alex"</span>, <span class="string">"value"</span>:<span class="string">"42"</span>],</span><br><span class="line">          [<span class="string">"name"</span>:<span class="string">"Joel"</span>, <span class="string">"value"</span>:<span class="string">"10"</span>]</span><br><span class="line">      ]</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> rootView = <span class="type">RCTRootView</span>(</span><br><span class="line">      bundleURL: jsCodeLocation,</span><br><span class="line">      moduleName: <span class="string">"RNHighScores"</span>,</span><br><span class="line">      initialProperties: mockData <span class="keyword">as</span> [<span class="type">NSObject</span> : <span class="type">AnyObject</span>],</span><br><span class="line">      launchOptions: <span class="literal">nil</span></span><br><span class="line">  )</span><br><span class="line">  <span class="keyword">let</span> vc = <span class="type">UIViewController</span>()</span><br><span class="line">  vc.view = rootView</span><br><span class="line">  <span class="keyword">self</span>.present(vc, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置info.plist</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">    &lt;key&gt;NSExceptionDomains&lt;/key&gt;</span><br><span class="line">    &lt;dict&gt;</span><br><span class="line">        &lt;key&gt;localhost&lt;/key&gt;</span><br><span class="line">        &lt;dict&gt;</span><br><span class="line">            &lt;key&gt;NSTemporaryExceptionAllowsInsecureHTTPLoads&lt;/key&gt;</span><br><span class="line">            &lt;true/&gt;</span><br><span class="line">        &lt;/dict&gt;</span><br><span class="line">    &lt;/dict&gt;</span><br><span class="line">&lt;/dict&gt;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动npm</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<ol>
+<li>运行</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
+<h3 id="真机运行"><a href="#真机运行" class="headerlink" title="真机运行"></a>真机运行</h3><p>在真机上运行ReactNative项目有两种方式，本文只说第二种</p>
+<ul>
+<li>手机和电脑在同一个局域网，将上述代码的localhost改为机器ip。</li>
+<li>打包出jsbundle</li>
+</ul>
+<p>在iOS目录创建release_ios文件夹，执行如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output release_ios/main.jsbundle --assets-dest release_ios/</span><br></pre></td></tr></table></figure>
+<p>会将js打包成main.jsbundle，将图片等输出到asset目录。将这些内容拖入工程，修改加载React-Native代码</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsCodeLocation = <span class="type">Bundle</span>.main.url(forResource: <span class="string">"main"</span>, withExtension: <span class="string">"jsbundle"</span>)</span><br></pre></td></tr></table></figure>
+<p>这样就可以直接在真机上运行了。</p>
+<h3 id="热更新bundle的拆分与合并"><a href="#热更新bundle的拆分与合并" class="headerlink" title="热更新bundle的拆分与合并"></a>热更新bundle的拆分与合并</h3><p>这方面的详解我推荐<a href="https://necfol.com/2018/04/02/ReactNative%E7%83%AD%E6%9B%B4%E6%96%B0%E4%B8%8E%E6%8B%86%E5%8C%85iOS%E7%89%88/" target="_blank" rel="noopener">necfol的方案</a>，我就不多说废话了，人家的图那么清晰，还有Demo，我只能推荐了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://www.jianshu.com/p/611b49ccf351" target="_blank" rel="noopener">含泪导入React-native 0.54到Swift原生项目</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

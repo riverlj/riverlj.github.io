@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS多线程编程三：Operation和OperationQueue - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开始"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一次尝试"><span class="toc-text">第一次尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任务，线程，进程"><span class="toc-text">任务，线程，进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Operation-和-GCD的比较"><span class="toc-text">Operation 和 GCD的比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重新定义App模型"><span class="toc-text">重新定义App模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微调"><span class="toc-text">微调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS多线程编程三：Operation和OperationQueue
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-31 19:34:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本文是多线程的第三篇文章，主要讲解Operation和OperationQueue。看资料的时候发现了一篇特别好的教程，随性就翻译一下，权当自己做个总结。本文主要内容翻译自<code>raywenderlich</code>的<code>operation and operationqueue tutorial in swift</code>。原文链接点<a href="https://www.raywenderlich.com/190008/operation-and-operationqueue-tutorial-in-swift" target="_blank" rel="noopener">这里</a>。</p>
+<p>不管是在Mac还是iOS系统上，当用户使用你的app点击按钮或者编辑文本的时候突然你的app卡死，界面变得无法响应，这对用户来讲是非常糟糕的体验。 在Mac系统上用户不得不盯着彩色的加载框等待恢复。在iOS系统上连加载框都看不到。用户希望在他们触摸屏幕之后应用程序能立即做出响应。卡顿的app让用户感到这个app很笨重，反应太慢。这会造成用户在AppStore中给应用差评。<br><a id="more"></a><br>保持app的流畅响应说起来容易做起来可是相当不容易。一旦你的app需要处理多个任务，事情很快变得复杂起来。主线程的run loop循环中没有足够的时间来处理繁重的任务，同时还要响应用户的UI操作。</p>
+<p>这种情况下，开发者该如何应对呢？解决办法就是通过多并行的手段将任务从主线程中剥离。并行的意思是你的应用程序同时执行多个工作流(或者多个线程)。这使得在执行任务的同时用户界面同时能够保持响应。</p>
+<p><code>Operation</code>和<code>OPerationQueue</code>这两个类是iOS系统中并发执行任务的一种方式。本教程就是讲述的就是如何使用它们。我们将以一个没用并发的例子开始，它会非常的卡顿，然后你将逐步加入并发操作，使之变得流畅。</p>
+<h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>我们的例子是展示一个滚动的图片列表，图片来自于网络，然后下载图片之后需要对其过滤，然后添加到表格上显示。应用的模型如下：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f01893734517d?w=650&amp;h=850&amp;f=jpeg&amp;s=65746" alt="应用模型"></p>
+<h3 id="第一次尝试"><a href="#第一次尝试" class="headerlink" title="第一次尝试"></a>第一次尝试</h3><p>点击这里<a href="https://pan.baidu.com/s/1qVI6lgJ3fNxAU-kxJw2YmA" target="_blank" rel="noopener">下载最初的项目</a>，这是该教程项目的第一个版本。</p>
+<blockquote>
+<p><strong>注意：</strong> 所有的图片都来自<a href="http://sxc.hu/" target="_blank" rel="noopener">stock.xchng</a> 数据源中有些的图片名字被故意错误的命名，这是为了模拟图片下载失败的场景。</p>
+</blockquote>
+<p>运行该项目，你讲看到滚动的图片列表如下，滑动该列表，是不是很不流畅。(国内需要给手机翻墙或者挂代理)。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f018937345f48?w=640&amp;h=960&amp;f=jpeg&amp;s=149298" alt="运行效果"></p>
+<p>所有的响应代码都在<strong>ListViewController.swift</strong>这个类中，大部分在<strong>tableView(_:cellForRowAtIndexPath:</strong>里。</p>
+<p>查看该方法里的代码，可以发现这里主要做了两件事：</p>
+<ul>
+<li>从网络上下载图片。</li>
+<li>使用Core Image 过滤图片。</li>
+</ul>
+<p>还有，第一次加载的时候，你需要从网络上获取所有图片的url。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lazy var photos = NSDictionary(contentsOf:dataSourceURL)!</span><br></pre></td></tr></table></figure>
+<p>所有这些工作都发生在应用程序的主线程。由于主线程还担任着界面的交互，过多的在主线程上加载图片，过滤图片会给主线程造成压力，这必然会牺牲应用的响应流畅度。你可以在Xcode的debug 导航条上查看CPU的工作情况。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f0189372ed870?w=690&amp;h=355&amp;f=jpeg&amp;s=53353" alt="cpu执行情况"></p>
+<p>从图中我们可以看到，大部分的任务消耗在thread1, 它是应用程序的主线程。</p>
+<p>接下来我们来优化用户体验。</p>
+<h3 id="任务，线程，进程"><a href="#任务，线程，进程" class="headerlink" title="任务，线程，进程"></a>任务，线程，进程</h3><p>在进行下一步之前，有几个概念你需要了解一下：</p>
+<ul>
+<li>任务：你需要处理的一个简单的，独立的工作。</li>
+<li>线程：由操作系统提供的一种机制，可以使在一个app内让多个操作同时执行。</li>
+<li>进程：一个可执行的代码块，由多个线程组成。</li>
+</ul>
+<blockquote>
+<p>在iOS和MacOS系统上，线程的功能是由POSIX线程API(或者pthreads)提供的，它们是操作系统的一部分。它们是很底层的，使用这些ÅPI编写代码及易出错，更糟糕的是由它们引发的错误非常难排查</p>
+<p>Foundation框架包含了一个Thread的类，它是线程相对容易使用，但使用Thread管理多线程仍然令人头疼。Operation 和 OperationQueue 是更高层次的API，使用它们处理多线程非常的方便了很多。</p>
+</blockquote>
+<p>下面展示了进程、线程、任务之间的关系。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f01893749372c?w=600&amp;h=131&amp;f=jpeg&amp;s=22420" alt="进程、线程、任务之间的关系"></p>
+<p>如上图所示，一个进程和包含多个线程，同一时刻每个线程可以同时执行多个任务。</p>
+<p>在上图中，Thread2 执行读取文件的操作，同时Thread1执行用户交互相关的代码。这和iOS代码结构十分相似：主线程应该执行和用户交互相关的操作，其他线程应该执行耗时操作，如读取文件，访问网络等等。</p>
+<h3 id="Operation-和-GCD的比较"><a href="#Operation-和-GCD的比较" class="headerlink" title="Operation 和 GCD的比较"></a>Operation 和 GCD的比较</h3><p>你可能听说过GCD，简而言之，GCD由语言功能，运行时库和系统增强功能组成，可提供系统和全面的改进，以支持iOS和macOS中多核硬件的并发性。如果你想学习GCD可以参考<a href="https://www.raywenderlich.com/?p=148513" target="_blank" rel="noopener">GCD Tutorial</a>。</p>
+<p><strong>Operation</strong>和<strong>OperationQueue</strong> 是构建在GCD之上的，通常来说，苹果建议使用最高级别的API来开发，必要的时候再使用低级API。</p>
+<p>下面是这两套API的简单比较，以便帮助你决定什么时间什么地方使用GCD或者OPeration:</p>
+<ul>
+<li><p>GCD 是一种轻量级的方式，用以表示即将并行执行的工作单元。你不用负责这些工作单元的执行，操作系统替你负责工作单元的调度。添加block之间的依赖是一件令人头疼的事，取消或者挂起一个block需要你编写额外的代码。</p>
+</li>
+<li><p>GCD操作增加了一些额外的开销，但您可以在各种操作之间添加依赖关系并重新使用，取消或暂停它们。</p>
+</li>
+</ul>
+<p>这篇教程使用Operation，因为你处理的是tableView，出于性能的原因，你需要在图片离开屏幕的时候取消图片的下载任务。即使这些操作实在后台线程中执行的，但如果大量的操作在队列中等待，性能依然会很糟糕。</p>
+<h3 id="重新定义App模型"><a href="#重新定义App模型" class="headerlink" title="重新定义App模型"></a>重新定义App模型</h3><p>是时候重新定义最初的没有额外线程的模型了。如果你仔细观察了最初的模型，你会发现它有三个地方可以提高。将这三个地方放在单独的线程中，主线程就可以安心的响应用户界面了。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f0189375d0716?w=650&amp;h=850&amp;f=jpeg&amp;s=101075" alt="重新定义模型"></p>
+<p>为了摆脱App的性能瓶颈，你需要一个线程来专门响应用户操作，一个线程来数据源和图片，一个线程来执行图片过滤。在新的模型中，App从主线程中启动，并加载一个空的tableView，同时，app开启一个线程来加载数据源。</p>
+<p>一旦数据源下载成功，你讲告知tableView刷新表格，刷新表格的操作必须在主线程中执行，因为它涉及到界面操作。这时，tableView知道了它拥有多少个行和需要展示的图片的URL，但它还没有真实的图片，如果这时你立即开始下载所有的图片，这将是非常糟糕的，因为你不需要同时展示所有的图片。</p>
+<p>那么，怎么做会好一点呢？</p>
+<p> 一个比较好的方式是仅仅下载那些屏幕内可见的cell的图片。因此你的代码应首先询问tableView那些行是可见的，然后再开启下载任务。与之相似，图片过滤操作也不能等待图片完全下载之后开始。因此，应用程序不应启动图像过滤任务，直到有未经过滤的图像等待处理。</p>
+<p>为了使app看起来更加可响应，一旦图片下载之后就会展示它。然后开始图片过滤，然后将过滤后的图片显示在界面上。下图展示了新模型的调度控制情况：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f0189375975b6?w=650&amp;h=250&amp;f=jpeg&amp;s=38480" alt="控制流程"> </p>
+<p>为了实现这些目标，你需要跟踪image的状态，下载中，已下载，已过滤。你也需要跟踪每个operation的状态和类型，以便于你在用户滚动的时候可以取消，暂停或者恢复它。</p>
+<p>好啦，现在开始编码！</p>
+<p>打开Xcode，新建一个Swift文件，叫做<code>PhotoOperations.swift</code> ，添加如下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="comment">// This enum contains all the possible states a photo record can be in</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PhotoRecordState</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> new, downloaded, filtered, failed</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PhotoRecord</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">let</span> url: <span class="type">URL</span></span><br><span class="line">  <span class="keyword">var</span> state = <span class="type">PhotoRecordState</span>.new</span><br><span class="line">  <span class="keyword">var</span> image = <span class="type">UIImage</span>(named: <span class="string">"Placeholder"</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">init</span>(name:<span class="type">String</span>, url:<span class="type">URL</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name</span><br><span class="line">    <span class="keyword">self</span>.url = url</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个类代表了app内展示的每个图片和它当前的状态，默认是 .new，图片默认情况下是一个占位图。</p>
+<p>为了追踪每个opration的状态，你需要另一个类，在<code>photoOperations.swift</code> 的末尾添加如下类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PendingOperations</span> </span>&#123;</span><br><span class="line">  <span class="built_in">lazy</span> <span class="keyword">var</span> downloadsInProgress: [<span class="type">IndexPath</span>: <span class="type">Operation</span>] = [:]</span><br><span class="line">  <span class="built_in">lazy</span> <span class="keyword">var</span> downloadQueue: <span class="type">OperationQueue</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> queue = <span class="type">OperationQueue</span>()</span><br><span class="line">    queue.name = <span class="string">"Download queue"</span></span><br><span class="line">    queue.maxConcurrentOperationCount = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> queue</span><br><span class="line">  &#125;()</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">lazy</span> <span class="keyword">var</span> filtrationsInProgress: [<span class="type">IndexPath</span>: <span class="type">Operation</span>] = [:]</span><br><span class="line">  <span class="built_in">lazy</span> <span class="keyword">var</span> filtrationQueue: <span class="type">OperationQueue</span> = &#123;</span><br><span class="line">    <span class="keyword">var</span> queue = <span class="type">OperationQueue</span>()</span><br><span class="line">    queue.name = <span class="string">"Image Filtration queue"</span></span><br><span class="line">    queue.maxConcurrentOperationCount = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> queue</span><br><span class="line">  &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此类包含两个字典，用于跟踪表中每行的活动和挂起下载和过滤操作，以及每种操作类型的操作队列。</p>
+<p>所有的操作都是懒加载，他们到第一次访问的时候才初始化，这会提升app的性能。</p>
+<p>如你所见，创建一个OperationQueue非常简单，对queue进行命名有助于你调试代码。最大并发操作数量设置为1是为了教学所有，为了让你看到操作被一个接一个的完成。您可以将此部分保留，并允许队列决定它可以同时处理多少操作 - 这将进一步提高性能。</p>
+<p> 队列如何决定一次可以运行多少个操作？这是个好问题！这取决于硬件。默认情况下，OperationQueue会在幕后进行一些计算，确定它运行的特定平台的最佳值，并启动尽可能多的线程。</p>
+<p>考虑如下情况：假设系统处于空闲状态，并且有大量可用资源。在这种情况下，队列可以同时启动八个线程。下次运行程序时，系统可能正忙于其他消耗资源操作。这次，队列可能只启动两个同时发生的线程。因为在此应用程序中设置了最大并发操作计数，所以一次只能执行一个操作。</p>
+<blockquote>
+<p>你可能会好奇为什么要跟踪所有活动和挂起的oprations呢？queue有一个operations方法，这个方法返回operation的数组，为什么不利用他呢？ 在这个项目中，因为他的效率并不高。你需要跟踪那个Operation和tableView的row相关，这将涉及到每次使用的时候遍历数组。但把他们存储在一个字典里，并使用Indexpath作为key，意味着查询的时候将更加快和高效。</p>
+</blockquote>
+<p>是时候关心下载和过滤的操作了，将下面代码添加到<code>PhotoOperations.swift</code> 的尾部。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageDownloader</span>: <span class="title">Operation</span> </span>&#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">let</span> photoRecord: <span class="type">PhotoRecord</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">init</span>(<span class="number">_</span> photoRecord: <span class="type">PhotoRecord</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.photoRecord = photoRecord</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">//4</span></span><br><span class="line">    <span class="keyword">if</span> isCancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//5</span></span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> imageData = <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: photoRecord.url) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//6</span></span><br><span class="line">    <span class="keyword">if</span> isCancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//7</span></span><br><span class="line">    <span class="keyword">if</span> !imageData.isEmpty &#123;</span><br><span class="line">      photoRecord.image = <span class="type">UIImage</span>(data:imageData)</span><br><span class="line">      photoRecord.state = .downloaded</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      photoRecord.state = .failed</span><br><span class="line">      photoRecord.image = <span class="type">UIImage</span>(named: <span class="string">"Failed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Operation是一个抽象类，专为子类化而设计。每个子类代表一个特定的任务，如前面的图所示。</p>
+<p>以下是上述代码中每个编号注释的内容：</p>
+<ol>
+<li>添加一个常量，引用与operation相关的PhotoRecord。</li>
+<li>创建初始化方法，并传入PhotoRecord。</li>
+<li>main() 方法是重写自operation, 是真正执行任务的地方。</li>
+<li>在开始之前检查是否处于取消状态。在尝试耗时的操作之前，应定期检查是否处于取消状态。</li>
+<li>下载图片数据。</li>
+<li>重新检测是否处于取消状态。</li>
+<li>如果图片成功下载，创建图片并添加到record中，然后设置状态。如果下载失败，标记record为失败，并设置相应的图片。</li>
+</ol>
+<p>下一步，你需要创建另一个operation 来处理图片过滤。把下面的代码添加到<code>PhotoOperations.swift</code>的尾部。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageFiltration</span>: <span class="title">Operation</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> photoRecord: <span class="type">PhotoRecord</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">init</span>(<span class="number">_</span> photoRecord: <span class="type">PhotoRecord</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.photoRecord = photoRecord</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">main</span> <span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> isCancelled &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">self</span>.photoRecord.state == .downloaded <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> image = photoRecord.image, </span><br><span class="line">       <span class="keyword">let</span> filteredImage = applySepiaFilter(image) &#123;</span><br><span class="line">      photoRecord.image = filteredImage</span><br><span class="line">      photoRecord.state = .filtered</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 这看起来与下载操作非常相似，只是使用了图像过滤操作（使用尚未实现的方法，因此编译器错误）替换了下载操作。</p>
+<p>在ImageFiltration类中添加过滤方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">applySepiaFilter</span><span class="params">(<span class="number">_</span> image: UIImage)</span></span> -&gt; <span class="type">UIImage?</span> &#123;</span><br><span class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> data = <span class="type">UIImagePNGRepresentation</span>(image) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">  <span class="keyword">let</span> inputImage = <span class="type">CIImage</span>(data: data)</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">if</span> isCancelled &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">let</span> context = <span class="type">CIContext</span>(options: <span class="literal">nil</span>)</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">guard</span> <span class="keyword">let</span> <span class="built_in">filter</span> = <span class="type">CIFilter</span>(name: <span class="string">"CISepiaTone"</span>) <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">  <span class="built_in">filter</span>.setValue(inputImage, forKey: kCIInputImageKey)</span><br><span class="line">  <span class="built_in">filter</span>.setValue(<span class="number">0.8</span>, forKey: <span class="string">"inputIntensity"</span>)</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">if</span> isCancelled &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">guard</span> </span><br><span class="line">    <span class="keyword">let</span> outputImage = <span class="built_in">filter</span>.outputImage,</span><br><span class="line">    <span class="keyword">let</span> outImage = context.createCGImage(outputImage, from: outputImage.extent) </span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="type">UIImage</span>(cgImage: outImage)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法和之前ListViewController中提供的过滤方法基本一致，移到这里是为了让其可以在operation中执行。同样的你需要频繁的检查operation的是否处于取消状态。一旦你的过滤执行完毕，需要重置record中的值。</p>
+<p>到这里我们已经有了所有的工具和方法来在后台处理任务。现在，我们回到viewcontroller来修改代码以提高性能。</p>
+<p>切换到ListViewController.swift文件，删除lazy var photos 属性，添加如下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> photos: [<span class="type">PhotoRecord</span>] = []</span><br><span class="line"><span class="keyword">let</span> pendingOperations = <span class="type">PendingOperations</span>()</span><br></pre></td></tr></table></figure>
+<p>这两个属相持有了PhotoRecord组成的数组和PendingOperations对象来管理operations。</p>
+<p>添加一个新的方法来下载photos数组的值</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchPhotoDetails</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">let</span> request = <span class="type">URLRequest</span>(url: dataSourceURL)</span><br><span class="line">  <span class="type">UIApplication</span>.shared.isNetworkActivityIndicatorVisible = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">let</span> task = <span class="type">URLSession</span>(configuration: .<span class="keyword">default</span>).dataTask(with: request) &#123; data, response, error <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: <span class="string">"Oops!"</span>,</span><br><span class="line">                                            message: <span class="string">"There was an error fetching photo details."</span>,</span><br><span class="line">                                            preferredStyle: .alert)</span><br><span class="line">    <span class="keyword">let</span> okAction = <span class="type">UIAlertAction</span>(title: <span class="string">"OK"</span>, style: .<span class="keyword">default</span>)</span><br><span class="line">    alertController.addAction(okAction)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> data = data &#123;</span><br><span class="line">      <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">// 3</span></span><br><span class="line">        <span class="keyword">let</span> datasourceDictionary =</span><br><span class="line">          <span class="keyword">try</span> <span class="type">PropertyListSerialization</span>.propertyList(from: data,</span><br><span class="line">                                                     options: [],</span><br><span class="line">                                                     format: <span class="literal">nil</span>) <span class="keyword">as</span>! [<span class="type">String</span>: <span class="type">String</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">for</span> (name, value) <span class="keyword">in</span> datasourceDictionary &#123;</span><br><span class="line">          <span class="keyword">let</span> url = <span class="type">URL</span>(string: value)</span><br><span class="line">          <span class="keyword">if</span> <span class="keyword">let</span> url = url &#123;</span><br><span class="line">            <span class="keyword">let</span> photoRecord = <span class="type">PhotoRecord</span>(name: name, url: url)</span><br><span class="line">            <span class="keyword">self</span>.photos.append(photoRecord)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5</span></span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">          <span class="type">UIApplication</span>.shared.isNetworkActivityIndicatorVisible = <span class="literal">false</span></span><br><span class="line">          <span class="keyword">self</span>.tableView.reloadData()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 6</span></span><br><span class="line">      &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">          <span class="keyword">self</span>.present(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6</span></span><br><span class="line">    <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</span><br><span class="line">      <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">        <span class="type">UIApplication</span>.shared.isNetworkActivityIndicatorVisible = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.present(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 7</span></span><br><span class="line">  task.resume()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建URLSession任务在后台下载image列表。</li>
+<li>配置UIAlertController，在错误的时候使用它。</li>
+<li>如果请求成功，请从属性列表中创建字典。字典使用图像名称作为键，其URL作为值。</li>
+<li>从字典构建PhotoRecord对象数组。</li>
+<li>返回主线程以重新加载表视图并显示图像。</li>
+<li>发生错误时显示警告控制器。请记住，URLSession任务在后台线程上运行，并且必须在主线程中显示屏幕上的任何消息。</li>
+<li>运行下载任务。</li>
+</ol>
+<p>在viewDidLoad()方法中调用这个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetchPhotoDetails()</span><br></pre></td></tr></table></figure>
+<p>下一步，找到tableView(_:cellForRowAtIndexPath:)方法，用以下代码替换它</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"CellIdentifier"</span>, <span class="keyword">for</span>: indexPath)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">if</span> cell.accessoryView == <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> indicator = <span class="type">UIActivityIndicatorView</span>(activityIndicatorStyle: .gray)</span><br><span class="line">    cell.accessoryView = indicator</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> indicator = cell.accessoryView <span class="keyword">as</span>! <span class="type">UIActivityIndicatorView</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">let</span> photoDetails = photos[indexPath.row]</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  cell.textLabel?.text = photoDetails.name</span><br><span class="line">  cell.imageView?.image = photoDetails.image</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//4</span></span><br><span class="line">  <span class="keyword">switch</span> (photoDetails.state) &#123;</span><br><span class="line">  <span class="keyword">case</span> .filtered:</span><br><span class="line">    indicator.stopAnimating()</span><br><span class="line">  <span class="keyword">case</span> .failed:</span><br><span class="line">    indicator.stopAnimating()</span><br><span class="line">    cell.textLabel?.text = <span class="string">"Failed to load"</span></span><br><span class="line">  <span class="keyword">case</span> .new, .downloaded:</span><br><span class="line">    indicator.startAnimating()</span><br><span class="line">    startOperations(<span class="keyword">for</span>: photoDetails, at: indexPath)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> cell</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建UIActivityIndicatorView并将其设置为单元的附件视图， 为提供反馈。</li>
+<li>根据indexpath从数据源中取出PhotoRecord。</li>
+<li>单元格的文本标签（几乎）始终相同，PhotoRecord的图片在状态变更后设置，因此无论record的状态如何，您都可以在此处设置它们。</li>
+<li>检查Record。根据需要设置活动指示符和文本，然后启动操作（尚未实现）。</li>
+</ol>
+<p>实现启动操作方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startOperations</span><span class="params">(<span class="keyword">for</span> photoRecord: PhotoRecord, at indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (photoRecord.state) &#123;</span><br><span class="line">  <span class="keyword">case</span> .new:</span><br><span class="line">    startDownload(<span class="keyword">for</span>: photoRecord, at: indexPath)</span><br><span class="line">  <span class="keyword">case</span> .downloaded:</span><br><span class="line">    startFiltration(<span class="keyword">for</span>: photoRecord, at: indexPath)</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    <span class="type">NSLog</span>(<span class="string">"do nothing"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，您传入PhotoRecord的实例及其索引路径。根据照片记录的状态，您可以启动下载或过滤操作。</p>
+<blockquote>
+<p>下载和过滤图像的方法是分开实现的。因为有可能在下载图像时用户可以滚动，所以你并不需要应用图像过滤器。下次用户来到同一行时，您无需重新下载图像;你只需要应用图像过滤器！</p>
+</blockquote>
+<p>现在，您需要实现在上面的方法中调用的方法。前面我们创建了一个自定义类PendingOperations来跟踪操作; 现在你真的开始使用它了！将以下方法添加到类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startDownload</span><span class="params">(<span class="keyword">for</span> photoRecord: PhotoRecord, at indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">guard</span> pendingOperations.downloadsInProgress[indexPath] == <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">      </span><br><span class="line">  <span class="comment">//2</span></span><br><span class="line">  <span class="keyword">let</span> downloader = <span class="type">ImageDownloader</span>(photoRecord)</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//3</span></span><br><span class="line">  downloader.completionBlock = &#123;</span><br><span class="line">    <span class="keyword">if</span> downloader.isCancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">      <span class="keyword">self</span>.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)</span><br><span class="line">      <span class="keyword">self</span>.tableView.reloadRows(at: [indexPath], with: .fade)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//4</span></span><br><span class="line">  pendingOperations.downloadsInProgress[indexPath] = downloader</span><br><span class="line">  </span><br><span class="line">  <span class="comment">//5</span></span><br><span class="line">  pendingOperations.downloadQueue.addOperation(downloader)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">startFiltration</span><span class="params">(<span class="keyword">for</span> photoRecord: PhotoRecord, at indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">  <span class="keyword">guard</span> pendingOperations.filtrationsInProgress[indexPath] == <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">      </span><br><span class="line">  <span class="keyword">let</span> filterer = <span class="type">ImageFiltration</span>(photoRecord)</span><br><span class="line">  filterer.completionBlock = &#123;</span><br><span class="line">    <span class="keyword">if</span> filterer.isCancelled &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">      <span class="keyword">self</span>.pendingOperations.filtrationsInProgress.removeValue(forKey: indexPath)</span><br><span class="line">      <span class="keyword">self</span>.tableView.reloadRows(at: [indexPath], with: .fade)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  pendingOperations.filtrationsInProgress[indexPath] = filterer</span><br><span class="line">  pendingOperations.filtrationQueue.addOperation(filterer)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>从downloadsInProgress中查找指定的IndexPath中是否有operation，如果有就返回。</li>
+<li>如果没有就创建ImageDownloader。</li>
+<li>添加一个完成的block，它将在operation执行完毕之后执行。这是让您的应用程序的其余部分知道操作已完成的好地方。要注意如果操作被取消也会执行完成块，因此您必须在执行任何操作之前检查此属性。你也无法保证调用完成块的线程，因此需要使用GCD触发主线程上表视图的重新加载。</li>
+<li>将operation添加到downloadsInProgress以帮助跟踪。</li>
+<li>将操作添加到下载队列。这是开始执行任务的方式。一旦你将operation添加到队列，队列开始处理任务的调度。</li>
+</ol>
+<p>startFiltration 方法遵循同样的原则，只是使用了ImageFiltration和filtrationsInProgress来追踪operation。</p>
+<p>到这里，我们已经完成了。运行该项目，查看效果。你滚动浏览表格视图，应用程序不再停止并开始下载图像并在它们变得可见时对其进行过滤。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f018a4c8bf5d3?w=640&amp;h=960&amp;f=jpeg&amp;s=52057" alt="效果"></p>
+<p>是不是很酷？你可以看到一点点努力可以大大提高您的应用程序响应速度 - 并为用户带来更多乐趣！</p>
+<h3 id="微调"><a href="#微调" class="headerlink" title="微调"></a>微调</h3><p>你在本教程中已经走了很长的路！你的小项目具有响应性，并且与原始版本相比有很多改进。但是，仍有一些小细节需要处理。</p>
+<p>你可能已经注意到，当你在表格视图中滚动时，这些屏幕外单元格仍处于下载和过滤的过程中。如果您快速滚动，应用程序将忙于下载并过滤列表中更靠后的单元格中的图像，即使它们不可见。理想情况下，应用程序应取消对屏幕外单元格的过滤，并优先显示当前显示的单元格。</p>
+<p>你可以在你的代码中添加取消规则，来进一步优化。</p>
+<p>打开 ListViewController.swift 找tableView(_:cellForRowAtIndexPath:) 方法，在调用 startOperationsForPhotoRecord 方法的地方添加判断</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> !tableView.isDragging &amp;&amp; !tableView.isDecelerating &#123;</span><br><span class="line">  startOperations(<span class="keyword">for</span>: photoDetails, at: indexPath)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只有在表视图不滚动时，才能告诉表视图启动操作。这些实际上是UIScrollView的属性，因为UITableView是UIScrollView的子类，所以表视图会自动继承这些属性。</p>
+<p> 接下来，将以下UIScrollView委托方法的实现添加到类中:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">scrollViewWillBeginDragging</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView)</span></span> &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  suspendAllOperations()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidEndDragging</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView, willDecelerate decelerate: Bool)</span></span> &#123;</span><br><span class="line">  <span class="comment">// 2</span></span><br><span class="line">  <span class="keyword">if</span> !decelerate &#123;</span><br><span class="line">    loadImagesForOnscreenCells()</span><br><span class="line">    resumeAllOperations()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidEndDecelerating</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView)</span></span> &#123;</span><br><span class="line">  <span class="comment">// 3</span></span><br><span class="line">  loadImagesForOnscreenCells()</span><br><span class="line">  resumeAllOperations()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>快速浏览上面的代码显示以下内容：</p>
+<ol>
+<li>在用户开始滚动时，你将希望暂停所有操作并查看用户想要查看的内容。您将在稍后实现suspendAllOperations。</li>
+<li>如果decelerate的值为false，则表示用户停止拖动表视图。因此，你希望恢复暂停操作，取消屏幕外单元格的操作，以及启动屏幕单元格的操作。之后实现loadImagesForOnscreenCells和resumeAllOperations。</li>
+<li>此委托方法告诉你表视图停止滚动，因此需要执行与操作2相同的操作。</li>
+</ol>
+<p>接下来，将下面方法添加到ListViewController中。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">suspendAllOperations</span><span class="params">()</span></span> &#123;</span><br><span class="line">  pendingOperations.downloadQueue.isSuspended = <span class="literal">true</span></span><br><span class="line">  pendingOperations.filtrationQueue.isSuspended = <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">resumeAllOperations</span><span class="params">()</span></span> &#123;</span><br><span class="line">  pendingOperations.downloadQueue.isSuspended = <span class="literal">false</span></span><br><span class="line">  pendingOperations.filtrationQueue.isSuspended = <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadImagesForOnscreenCells</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="comment">//1</span></span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">let</span> pathsArray = tableView.indexPathsForVisibleRows &#123;</span><br><span class="line">    <span class="comment">//2</span></span><br><span class="line">    <span class="keyword">var</span> allPendingOperations = <span class="type">Set</span>(pendingOperations.downloadsInProgress.keys)</span><br><span class="line">    allPendingOperations.formUnion(pendingOperations.filtrationsInProgress.keys)</span><br><span class="line">      </span><br><span class="line">    <span class="comment">//3</span></span><br><span class="line">    <span class="keyword">var</span> toBeCancelled = allPendingOperations</span><br><span class="line">    <span class="keyword">let</span> visiblePaths = <span class="type">Set</span>(pathsArray)</span><br><span class="line">    toBeCancelled.subtract(visiblePaths)</span><br><span class="line">      </span><br><span class="line">    <span class="comment">//4</span></span><br><span class="line">    <span class="keyword">var</span> toBeStarted = visiblePaths</span><br><span class="line">    toBeStarted.subtract(allPendingOperations)</span><br><span class="line">      </span><br><span class="line">    <span class="comment">// 5</span></span><br><span class="line">    <span class="keyword">for</span> indexPath <span class="keyword">in</span> toBeCancelled &#123;</span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> pendingDownload = pendingOperations.downloadsInProgress[indexPath] &#123;</span><br><span class="line">        pendingDownload.cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)</span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> pendingFiltration = pendingOperations.filtrationsInProgress[indexPath] &#123;</span><br><span class="line">        pendingFiltration.cancel()</span><br><span class="line">      &#125;</span><br><span class="line">      pendingOperations.filtrationsInProgress.removeValue(forKey: indexPath)</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="comment">// 6</span></span><br><span class="line">    <span class="keyword">for</span> indexPath <span class="keyword">in</span> toBeStarted &#123;</span><br><span class="line">      <span class="keyword">let</span> recordToProcess = photos[indexPath.row]</span><br><span class="line">      startOperations(<span class="keyword">for</span>: recordToProcess, at: indexPath)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>suspendAllOperations()</code> and <code>resumeAllOperations()</code> 实现起来非常简单，OperationQueue可以通过将suspended属性设置为true来挂起queque里面的所有的操作。</p>
+<p>loadImagesForOnscreenCells() 有一点复杂。</p>
+<ol>
+<li>从包含表视图中所有当前可见行的索引路径的数组开始。</li>
+<li>过组合正在进行的所有下载和正在进行的所有过滤器，构建一组所有待处理操作。</li>
+<li>构造一组包含要取消的操作的索引路径。从所有操作开始，然后删除可见行的索引路径。这将使一组操作涉及屏幕外行。</li>
+<li>构造一组需要启动其操作的索引路径。从索引路径开始所有可见行，然后删除操作已挂起的那些行。</li>
+<li>循环访问要取消的那些，取消它们，并从PendingOperations中删除它们的引用。</li>
+<li>遍历那些要启动的，并为每个调用startOperations（for：at :)。</li>
+</ol>
+<p>运行应用，这是一个响应更快，资源管理更好的应用程序。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/7/31/164f018a4f3f78e4?w=690&amp;h=345&amp;f=jpeg&amp;s=64383" alt="运行效果"></p>
+<p> 请注意，当您完成滚动表视图时，可见行上的图像将立即开始处理。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><strong>本文首发于RiverLi的个人公众号，转载请注明出处。</strong><br><strong>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。</strong><br><strong>欢迎关注我公众号与我交流。</strong><br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

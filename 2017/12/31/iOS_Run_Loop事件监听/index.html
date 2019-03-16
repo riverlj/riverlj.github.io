@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS_Run_Loop事件监听 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Run-Loop监听事件列表"><span class="toc-text">Run Loop监听事件列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听代码"><span class="toc-text">监听代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听主线程Run-Loop事件"><span class="toc-text">监听主线程Run Loop事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#监听后台线程Run-Loop事件"><span class="toc-text">监听后台线程Run Loop事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS_Run_Loop事件监听
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-12-31 21:19:35</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#runloop" title="runloop">runloop</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="Run-Loop监听事件列表"><a href="#Run-Loop监听事件列表" class="headerlink" title="Run Loop监听事件列表"></a>Run Loop监听事件列表</h2><ol>
+<li>run loop的入口事件。</li>
+<li>run loop即将处理计时器事件。</li>
+<li>run loop即将处理输入源事件。</li>
+<li>run loop即将休眠。</li>
+<li>run loop已经被唤醒，但是还没有处理唤醒它的事件。</li>
+<li>run loop 退出。</li>
+</ol>
+<a id="more"></a>
+<h2 id="监听代码"><a href="#监听代码" class="headerlink" title="监听代码"></a>监听代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">- (void)threadMain</span><br><span class="line">&#123;</span><br><span class="line">    NSRunLoop* myRunLoop = [NSRunLoop currentRunLoop];</span><br><span class="line">    CFRunLoopObserverContext context = &#123;0,</span><br><span class="line">        (__bridge void *)(self), NULL, NULL, NULL&#125;;</span><br><span class="line">    CFRunLoopObserverRef    observer = CFRunLoopObserverCreate(kCFAllocatorDefault,</span><br><span class="line">                                                               kCFRunLoopAllActivities, YES, 0, &amp;myRunLoopObserver, &amp;context);</span><br><span class="line">    </span><br><span class="line">    if (observer)</span><br><span class="line">    &#123;</span><br><span class="line">        CFRunLoopRef    cfLoop = [myRunLoop getCFRunLoop];</span><br><span class="line">        CFRunLoopAddObserver(cfLoop, observer, kCFRunLoopDefaultMode);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [NSTimer scheduledTimerWithTimeInterval:0.1 target:self</span><br><span class="line">                                   selector:@selector(doFireTimer:) userInfo:nil repeats:YES];</span><br><span class="line">    </span><br><span class="line">    NSInteger    loopCount = 10;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">        [myRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];</span><br><span class="line">      // 1s 后才执行 --操作</span><br><span class="line">        loopCount--;</span><br><span class="line">    &#125;</span><br><span class="line">    while (loopCount);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static void myRunLoopObserver(CFRunLoopObserverRef observer,  CFRunLoopActivity activity, void *info)</span><br><span class="line">&#123;</span><br><span class="line">    switch (activity) &#123;</span><br><span class="line">        case kCFRunLoopEntry:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopEntry&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeTimers:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeTimers&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeSources:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeSources&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopBeforeWaiting:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopBeforeWaiting&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopAfterWaiting:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopAfterWaiting&quot;);</span><br><span class="line">            break;</span><br><span class="line">        case kCFRunLoopExit:</span><br><span class="line">            NSLog(@&quot;kCFRunLoopExit&quot;);</span><br><span class="line">            break;</span><br><span class="line">            </span><br><span class="line">        default:</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)doFireTimer:(NSTimer *)timer &#123;</span><br><span class="line">    NSLog(@&quot;timer action&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解释：</strong>threadMain方法是apple官方文档中的示例代码，接下来主要讲解里面的几个主要函数。</p>
+<p><strong>CFRunLoopActivity</strong> 监听事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef enum CFRunLoopActivity : CFOptionFlags &#123;</span><br><span class="line">    kCFRunLoopEntry = (1UL &lt;&lt; 0),</span><br><span class="line">    kCFRunLoopBeforeTimers = (1UL &lt;&lt; 1),</span><br><span class="line">    kCFRunLoopBeforeSources = (1UL &lt;&lt; 2),</span><br><span class="line">    kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5),</span><br><span class="line">    kCFRunLoopAfterWaiting = (1UL &lt;&lt; 6),</span><br><span class="line">    kCFRunLoopExit = (1UL &lt;&lt; 7),</span><br><span class="line">    kCFRunLoopAllActivities = 0x0FFFFFFFU</span><br><span class="line">&#125; CFRunLoopActivity;</span><br></pre></td></tr></table></figure>
+<p><strong>CFRunLoopObserverContext</strong>是一个结构体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typedef struct &#123;</span><br><span class="line">    CFIndex	version;</span><br><span class="line">    void *	info;</span><br><span class="line">    const void *(*retain)(const void *info);</span><br><span class="line">    void	(*release)(const void *info);</span><br><span class="line">    CFStringRef	(*copyDescription)(const void *info);</span><br><span class="line">&#125; CFRunLoopObserverContext;</span><br></pre></td></tr></table></figure>
+<p>version: 结构体的版本号，必须是0</p>
+<p>retain: 对info进行retaion操作的回调方法。</p>
+<p>release: 对info进行release操作的回调方法。</p>
+<p>copyDescription: 对info进行copyDescription操作的回调方法。</p>
+<p>info:  由程序定义的一个指针，在创建的时候与run loop的监听者相关联。这个指针在context内部的所有回调函数中传递。</p>
+<p><strong>CFRunLoopObserverCreate</strong> 创建run loop监听者对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CFRunLoopObserverRef CFRunLoopObserverCreate(CFAllocatorRef allocator, </span><br><span class="line">                                             CFOptionFlags activities, </span><br><span class="line">                                             Boolean repeats, </span><br><span class="line">                                             CFIndex order, </span><br><span class="line">                                             CFRunLoopObserverCallBack callout, </span><br><span class="line">                                             CFRunLoopObserverContext *context);</span><br></pre></td></tr></table></figure>
+<p>allocator: 内存分配器，为新的对象分配内存，NULL或kCFAllocatorDefault表示默认的内存分配器。</p>
+<p>activities: 要监听那些事件。参考：CFRunLoopActivity。</p>
+<p>repeats： 是否重复监听。</p>
+<p>callout: 回调函数。</p>
+<p>context: 上下文，参考：CFRunLoopObserverContext</p>
+<p><strong>runUntilDate</strong> 执行run loop直到一个指定时间。在这段时间内处理所有依附于它的输入源的数据。如果没有输入源或者时间源依附于run loop, 这个方法将立即退出，否则的话，他将以NSDefaultRunLoopMode 为参数不停的调用<strong>runMode: beforeDate:</strong>一直到指定的时间。</p>
+<p>手动的从run loop中移除所有的输入源和timer不能确保run loop会终止。macOS 可以根据需要装载和移除额外的输入源，以处理针对接收者线程的请求，这些源可以阻止运行循环退出。</p>
+<h2 id="监听主线程Run-Loop事件"><a href="#监听主线程Run-Loop事件" class="headerlink" title="监听主线程Run Loop事件"></a>监听主线程Run Loop事件</h2><p>对于主线程而言，run loop 随着应用程序的启动而启动，我们无法控制其启动和退出。我们可以对其运行状态监听。</p>
+<p>在<strong>didFinishLaunchingWithOptions</strong>方法中调用<strong>threadMain</strong>，会发现控制台在不断的打印数据。</p>
+<p>需要注意的是：对于主线程而言<strong>threadMain</strong>方法中while不是必须的，因为程序运行期间，主线程的run loop不会终止。</p>
+<h2 id="监听后台线程Run-Loop事件"><a href="#监听后台线程Run-Loop事件" class="headerlink" title="监听后台线程Run Loop事件"></a>监听后台线程Run Loop事件</h2><p>在<strong>didFinishLaunchingWithOptions</strong>方法中调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self performSelectorInBackground:@selector(threadMain) withObject:nil];</span><br></pre></td></tr></table></figure>
+<p>会发现控制台会打印100次 <strong>timer action</strong>，这100次来自于10次循环*每秒10调用timer。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这篇文章主要讲解了关于Run Loop的事件监听，Run Loop是iOS开发和面试中经常出现的知识点，我也在进一步的学习，如果有哪些不对的地方，还希望您的指正。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

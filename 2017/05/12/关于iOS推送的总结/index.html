@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        关于iOS推送的总结 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#本文目的"><span class="toc-text">本文目的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#推送中的一些坑"><span class="toc-text">推送中的一些坑</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#远程推送中的一些坑"><span class="toc-text">远程推送中的一些坑</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#推送提醒方式"><span class="toc-text">推送提醒方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#远程推送"><span class="toc-text">远程推送</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#注册推送"><span class="toc-text">注册推送</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接收方法"><span class="toc-text">接收方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取消推送"><span class="toc-text">取消推送</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        关于iOS推送的总结
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-05-12 20:41:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#APNS" title="APNS">APNS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="本文目的"><a href="#本文目的" class="headerlink" title="本文目的"></a>本文目的</h1><p>本文不讲证书配置，不讲APNS的原理，仅描述开发过程中遇到的坑坑洼洼。</p>
+<h1 id="推送中的一些坑"><a href="#推送中的一些坑" class="headerlink" title="推送中的一些坑"></a>推送中的一些坑</h1><p>大家都知道iOS中推送有本地推送和远程推送。那么我们就分开说了，先说远程推送。</p>
+<h2 id="远程推送中的一些坑"><a href="#远程推送中的一些坑" class="headerlink" title="远程推送中的一些坑"></a>远程推送中的一些坑</h2><p>就远程推送而言，应用推送到达的场景有：</p>
+<ul>
+<li>App未启动</li>
+<li>APP在后台</li>
+<li>用户正在玩App<br>每种情况下有不同的处理方式，再加上不同的版本iOSApi不一致，导致处理逻辑相当繁琐。<br>先介绍远程推送的一些代理方法</li>
+</ul>
+<a id="more"></a>
+<h1 id="推送提醒方式"><a href="#推送提醒方式" class="headerlink" title="推送提醒方式"></a>推送提醒方式</h1><p>无论是远程推送还是本地推送，推送的提醒方式是由系统版本决定的，在设置—&gt;悟空遥控器-&gt;通知里面可以选择推送的提醒方式。</p>
+<h1 id="远程推送"><a href="#远程推送" class="headerlink" title="远程推送"></a>远程推送</h1><h2 id="注册推送"><a href="#注册推送" class="headerlink" title="注册推送"></a>注册推送</h2><p>方法一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//iOS3到iOS8 有效，其中type的值如下枚举</span><br><span class="line">- (void)registerForRemoteNotificationTypes:(UIRemoteNotificationType)types;</span><br><span class="line">//iOS3到iOS8 有效</span><br><span class="line">typedef NS_OPTIONS(NSUInteger, UIRemoteNotificationType) &#123;</span><br><span class="line">    UIRemoteNotificationTypeNone    = 0,</span><br><span class="line">    UIRemoteNotificationTypeBadge   = 1 &lt;&lt; 0,</span><br><span class="line">    UIRemoteNotificationTypeSound   = 1 &lt;&lt; 1,</span><br><span class="line">    UIRemoteNotificationTypeAlert   = 1 &lt;&lt; 2,</span><br><span class="line">    UIRemoteNotificationTypeNewsstandContentAvailability = 1 &lt;&lt; 3,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//iOS8 之后有效， 调用该方法注册推送，必须先调用registerUserNotificationSettings设置推送形式。</span><br><span class="line">- (void)registerForRemoteNotifications;</span><br><span class="line"></span><br><span class="line">//UIUserNotificationSettings, UIUserNotificationType 取下面两个枚举值</span><br><span class="line">+ (instancetype)settingsForTypes:(UIUserNotificationType)types</span><br><span class="line">                      categories:(nullable NSSet&lt;UIUserNotificationCategory *&gt; *)categories;</span><br><span class="line">              </span><br><span class="line">// iOS8 到 iOS10</span><br><span class="line">typedef NS_OPTIONS(NSUInteger, UIUserNotificationType) &#123;</span><br><span class="line">    UIUserNotificationTypeNone    = 0,      </span><br><span class="line">    UIUserNotificationTypeBadge   = 1 &lt;&lt; 0, </span><br><span class="line">    UIUserNotificationTypeSound   = 1 &lt;&lt; 1, </span><br><span class="line">    UIUserNotificationTypeAlert   = 1 &lt;&lt; 2, </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">iOS 10+</span><br><span class="line">typedef NS_OPTIONS(NSUInteger, UNAuthorizationOptions) &#123;</span><br><span class="line">    UNAuthorizationOptionBadge   = (1 &lt;&lt; 0),</span><br><span class="line">    UNAuthorizationOptionSound   = (1 &lt;&lt; 1),</span><br><span class="line">    UNAuthorizationOptionAlert   = (1 &lt;&lt; 2),</span><br><span class="line">    UNAuthorizationOptionCarPlay = (1 &lt;&lt; 3),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法三：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//UNUserNotificationCenter 的方法 iOS 10+</span><br><span class="line">- (void)requestAuthorizationWithOptions:(UNAuthorizationOptions)options </span><br><span class="line">                      completionHandler:(void (^)(BOOL granted, NSError *error))completionHandler;</span><br></pre></td></tr></table></figure>
+<h2 id="接收方法"><a href="#接收方法" class="headerlink" title="接收方法"></a>接收方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 如果APP正在运行时接收到远程推送消息，系统会调用此方法。iOS3-iOS10</span><br><span class="line">- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo;</span><br><span class="line"></span><br><span class="line">//程序处于后台或者被杀死状态，收到远程通知后，当你进入(aunch)程序时，系统调用此方法，iOS 7 之后</span><br><span class="line">- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler;</span><br></pre></td></tr></table></figure>
+<p><em>如果两个代理方法都被实现了，系统将只调用application:didReceiveRemoteNotification:fetchCompletionHandler:</em></p>
+<p>另外需要注意：从didFinishLaunchingWithOptions 方法里面可以获得APP从通知栏里启动并获取携带的推送参数，这里可以不做判断，都归于didReceiveRemoteNotification:fetchCompletionHandler 中处理。并且iOS10之后废弃了UIApplicationLaunchOptionsRemoteNotificationKey。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// iOS 10+ 后台推送消息接收</span><br><span class="line">- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler;</span><br><span class="line"></span><br><span class="line">// iOS 10+ 前台推送消息处理, 可在APP 前台状态下,弹出推送弹窗</span><br><span class="line">- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(nonnull UNNotification *)notification withCompletionHandler:(nonnull void (^)(UNNotificationPresentationOptions))completionHandler;</span><br></pre></td></tr></table></figure>
+<h2 id="取消推送"><a href="#取消推送" class="headerlink" title="取消推送"></a>取消推送</h2><p>iOS10之前不能取消一个已发送未点击的本地通知，但是iOS10之后可以根据identifiers取消某一个指定的通知，不管是待发送的还是已发送未点击的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//ios4-ios10 取消一个指定的推送</span><br><span class="line">- (void)cancelLocalNotification:(UILocalNotification *)notification;</span><br><span class="line">//ios4-ios10 取消所有的本地推送</span><br><span class="line">- (void)cancelAllLocalNotifications ;</span><br><span class="line"></span><br><span class="line">//iOS10 + 取消待推送的消息，根据identifiers</span><br><span class="line">- (void)removePendingNotificationRequestsWithIdentifiers:(NSArray&lt;NSString *&gt; *)identifiers;</span><br><span class="line">- (void)removeAllPendingNotificationRequests;</span><br><span class="line"></span><br><span class="line">//iOS10 + 取消已经推送的消息，根据identifiers</span><br><span class="line">- (void)removeDeliveredNotificationsWithIdentifiers:(NSArray&lt;NSString *&gt; *)identifiers __TVOS_PROHIBITED;</span><br><span class="line">- (void)removeAllDeliveredNotifications __TVOS_PROHIBITED;</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.simpleapples.com/2014/09/ios8-register-notification-fail/" target="_blank" rel="noopener">http://www.simpleapples.com/2014/09/ios8-register-notification-fail/</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

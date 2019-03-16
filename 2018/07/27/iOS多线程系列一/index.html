@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS多线程系列一 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程和线程的"><span class="toc-text">进程和线程的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程"><span class="toc-text">进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的生命周期"><span class="toc-text">线程的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSThread的基本用法"><span class="toc-text">NSThread的基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程间的通信"><span class="toc-text">线程间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS多线程系列一
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-27 20:41:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>本文主要讲解iOS线程相关的知识，对于一个iOS开发者，如果想保证自己所开发的应用流畅的运行，线程的知识是无法绕开的。通过阅读本文，你讲了解到如下知识：</p>
+<ul>
+<li>进程和线程</li>
+<li>线程的生命周期</li>
+<li>NSThread基本用法</li>
+<li>线程间的通信</li>
+</ul>
+<a id="more"></a>
+<h3 id="进程和线程的"><a href="#进程和线程的" class="headerlink" title="进程和线程的"></a>进程和线程的</h3><h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><p>用最通俗的话来解释进程：启动一个app,就是开启了一个进程。当你使用某款App，一边浏览它所提供的内容，一边使用它下载图片，这需要用多个线程来完成上述操作。</p>
+<p>进程是应用的一次执行，线程是CPU的最小执行单元，一个进程里可以包含多个线程。</p>
+<h3 id="线程的生命周期"><a href="#线程的生命周期" class="headerlink" title="线程的生命周期"></a>线程的生命周期</h3><p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftmcq9hlmsj20hy0icjsk.jpg" alt="线程的生命周期"><br>对于一个线程而言，它经历了<code>新建</code>、<code>就绪</code>、<code>运行</code>、<code>阻塞</code>、<code>死亡</code> 这几个阶段。解释如下：</p>
+<p><strong>新建：</strong> 线程刚被创建，还没有被调用。</p>
+<p><strong>就绪：</strong> 调用了线程的start的方法之后，线程就进入就绪状态。</p>
+<p><strong>运行：</strong> 当CPU从就绪队列中调用到该线程，该线程进入运行状态。</p>
+<p><strong>死亡：</strong> 当线程执行完毕或者线程被强制退出，线程就进入死亡状态。</p>
+<p><strong>阻塞：</strong> 当正在运行的线程被其他其他优先级更高的线程抢断或者调用线程的sleep方法，线程就进入了阻塞状态，当sleep结束，线程进入就绪状态，等待CPU的调度。</p>
+<p>这是线程的最基本生命周期，iOS中与线程生命周期相关的有一个非常重要的东西就是：runloop。 本文暂不涉及这方面的知识，以后再讲解。</p>
+<p>接下来我们讲解iOS多线程相关的API，第一个就是NSThread。</p>
+<h3 id="NSThread的基本用法"><a href="#NSThread的基本用法" class="headerlink" title="NSThread的基本用法"></a>NSThread的基本用法</h3><p><code>NSThread</code>是对C语言中的线程管理相关代码的封装。用来提供面向对象的线程管理方法。</p>
+<p><strong>创建：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//第一种方法</span><br><span class="line">self.thread = [[NSThread alloc] initWithTarget:self selector:@selector(threadAction) object:nil];</span><br></pre></td></tr></table></figure>
+<p>这种方法会在线程执行的时候调用<code>threadAction</code>这个回调方法，你需要将自己的任务写在这个方法中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//第二种方法</span><br><span class="line">self.thread = [[NSThread alloc] initWithBlock:^&#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, [NSThread currentThread]);</span><br><span class="line">        [self task];</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure></p>
+<p>这种方法会在线程执行的时候调用block里的任务，你需要将自己的任务写在block中。</p>
+<p><strong>开启：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self.thread start];</span><br></pre></td></tr></table></figure></p>
+<p><strong>取消：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self.thread cancel];</span><br></pre></td></tr></table></figure></p>
+<p><strong>休眠</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[NSThread sleepForTimeInterval:3];</span><br></pre></td></tr></table></figure></p>
+<p><strong>获取当前线程</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[NSThread currentThread];</span><br></pre></td></tr></table></figure></p>
+<p><strong>获取线程状态</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//当前线程是不是主线程</span><br><span class="line">self.thread.isMainThread</span><br><span class="line">//当前线程是不是正在执行</span><br><span class="line">self.thread.isExecuting</span><br><span class="line">//当前线程是不是执行完毕了</span><br><span class="line">self.thread.isFinished</span><br><span class="line">//当前app是不是一个多线程app, 对于iOS而已，肯定是的，返回YES</span><br><span class="line">self.thread.isMultiThreaded</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong> 对于一个已经finished的线程，不能再调用其start方法了，会崩溃。</p>
+<h3 id="线程间的通信"><a href="#线程间的通信" class="headerlink" title="线程间的通信"></a>线程间的通信</h3><p>在iOS中，UI相关的操作需要回到主线程进行操作，那么如何在NSThread线程中回到主线程呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//回到主线程执行</span><br><span class="line">[self performSelectorOnMainThread:@selector(onMainThreadWork) withObject:nil waitUntilDone:NO];</span><br><span class="line"></span><br><span class="line">//回到指定的线程执行</span><br><span class="line">[self performSelector:@selector(方法名) onThread:执行的线程 withObject:参数 waitUntilDone:是否阻塞];</span><br></pre></td></tr></table></figure></p>
+<p><code>waitUntilDone</code>这个参数表示是否阻塞当前代码，yes表示阻塞，selecotor方法不执行完毕，则代码一直阻塞在这里，不往下执行。no表示不阻塞，即不等待selector方法执行完毕。·</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

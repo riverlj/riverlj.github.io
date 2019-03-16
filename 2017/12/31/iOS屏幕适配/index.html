@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS屏幕适配 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#适配的关键"><span class="toc-text">适配的关键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#屏幕适配包含哪些内容"><span class="toc-text">屏幕适配包含哪些内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iPhone-设备屏幕信息"><span class="toc-text">iPhone 设备屏幕信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#point-点"><span class="toc-text">point 点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pixel-像素"><span class="toc-text">Pixel 像素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PPI"><span class="toc-text">PPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#适配原理"><span class="toc-text">适配原理</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS屏幕适配
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-12-31 22:00:15</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#iOS" title="iOS">iOS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="适配的关键"><a href="#适配的关键" class="headerlink" title="适配的关键"></a>适配的关键</h2><p>对于大多数开发者而言，UI的开发流程是：设计师出图 -&gt;还原设计师效果图。问题是：设计师一般只会给一套设计图，基于6或者6p，其他设备上的显示信息需要开发者自己去做调整。所以个人觉得还原设计图之前要与设计师进行充分的沟通，在不同屏幕上，字体、元素宽高，元素间距等信息如何处理。只有你们定好了规范，你才能在不同的屏幕上做到还原设计师的设计意图，而不会重复返工修改UI。</p>
+<h2 id="屏幕适配包含哪些内容"><a href="#屏幕适配包含哪些内容" class="headerlink" title="屏幕适配包含哪些内容"></a>屏幕适配包含哪些内容</h2><ul>
+<li>字体适配</li>
+<li>距离适配</li>
+<li>图片适配</li>
+</ul>
+<a id="more"></a>
+<h2 id="iPhone-设备屏幕信息"><a href="#iPhone-设备屏幕信息" class="headerlink" title="iPhone 设备屏幕信息"></a>iPhone 设备屏幕信息</h2><p>下图展示了从初代iPhone到iPhoneX的屏幕信息。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1fmzoco6jeej20lq0my40z.jpg" alt="iPhone屏幕信息"></p>
+<p>你可以在<a href="https://www.paintcodeapp.com/download/poster_iphones.pdf" target="_blank" rel="noopener">这个</a>下载到PDF格式。</p>
+<p>接下来介绍关于适配的几个概念。</p>
+<h2 id="point-点"><a href="#point-点" class="headerlink" title="point 点"></a>point 点</h2><p>我们开发过程中常用的单位就是点。在早期iOS系统中一个点就是一个像素。</p>
+<h2 id="Pixel-像素"><a href="#Pixel-像素" class="headerlink" title="Pixel 像素"></a>Pixel 像素</h2><p>随着屏幕技术的提升，1个点所表示的像素数也越来越多，清晰度也越来越高。iOS中通过<strong>UIScreen.mainScreen.scale</strong> 可以获取当前设备的缩放因子，如果该值为2，则一个点表示4个像素，该值为3，则一个点表示9个像素。</p>
+<h2 id="PPI"><a href="#PPI" class="headerlink" title="PPI"></a>PPI</h2><p>每英寸所拥有的像素数目。</p>
+<h2 id="适配原理"><a href="#适配原理" class="headerlink" title="适配原理"></a>适配原理</h2><p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1fmztpx82ouj20ug0bm407.jpg" alt="PPI放大过程"></p>
+<p>我们来假设：设计师给的设计图是基于4.7英寸的设备。所以，相对5.5英寸是扩大了1.17倍，对于4英寸的设备缩小到0.875倍。由于目前市面上基本上已经没有了3.5英寸的设备了，并且4英寸和3.5英寸的屏幕宽度都是320，所以我们就在3.5英寸的设备上直接显示4英寸上的内容，不做缩放。这样一来，只剩下了iPhone X。对于iPhone X而言，由于其相对于4.7英寸的设备而言只是高度增加了，这是暂时让其与4.7英寸的屏幕保持一致，只需根据具体的页面信息来调整其高度信息。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Xcode 单元测试 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#添加单元测试"><span class="toc-text">添加单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本流程"><span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本的测试"><span class="toc-text">基本的测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步测试"><span class="toc-text">异步测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能测试"><span class="toc-text">性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码覆盖率"><span class="toc-text">代码覆盖率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本UI测试"><span class="toc-text">基本UI测试</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Xcode 单元测试
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-10-01 20:41:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#APNS" title="APNS">APNS</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h2 id="添加单元测试"><a href="#添加单元测试" class="headerlink" title="添加单元测试"></a>添加单元测试</h2><p><strong>新建项目时添加</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fjzkvml5hkj30cy07y3z4.jpg" alt="WX20170928-090158"></p>
+<p><strong>在已有项目中添加</strong><br><a id="more"></a><br>File-&gt;New-&gt;Target…</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fjzkw4d6raj30k60ebwfj.jpg" alt="WX20170928-090849"></p>
+<p><strong>效果</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fjzkwdi57yj30ci068dgy.jpg" alt="WX20170928-090735"></p>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>单元测试的类继承自：XCTestCase</p>
+<p>测试方法以test开头</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="comment">////每次测试前调用，可以在测试之前创建在test case方法中需要用到的一些对象等</span></span><br><span class="line">       <span class="keyword">super</span>.setUp()</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</span><br><span class="line">       <span class="comment">//每次测试结束时调用tearDown方法</span></span><br><span class="line">       <span class="keyword">super</span>.tearDown()</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">func</span> <span class="title">testExample</span><span class="params">()</span></span> &#123;</span><br><span class="line">      <span class="comment">//具体的测试逻辑 </span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>基本测试流程：</p>
+<ul>
+<li>定义变量和预期</li>
+<li>执行方法得到实际值</li>
+<li>断言</li>
+</ul>
+<p>常用断言表达式</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通用断言</span></span><br><span class="line"> <span class="type">XCTAssert</span>(expression, format...)</span><br><span class="line"> <span class="comment">//常用断言：</span></span><br><span class="line"> <span class="type">XCTAssertTrue</span>(expression, format...)</span><br><span class="line"> <span class="type">XCTAssertFalse</span>(expression, format...)</span><br><span class="line"> <span class="type">XCTAssertEqual</span>(expression1, expression2, format...)</span><br><span class="line"> <span class="type">XCTAssertNotEqual</span>(expression1, expression2, format...)</span><br><span class="line"> <span class="type">XCTAssertEqualWithAccuracy</span>(expression1, expression2, accuracy, format...)</span><br><span class="line"> <span class="type">XCTAssertNotEqualWithAccuracy</span>(expression1, expression2, accuracy, format...)</span><br><span class="line"> <span class="type">XCTAssertNil</span>(expression, format...)</span><br><span class="line"> <span class="type">XCTAssertNotNil</span>(expression, format...)</span><br><span class="line"> </span><br><span class="line"> <span class="type">XCTFail</span>(format...) <span class="comment">//直接Fail的断言</span></span><br></pre></td></tr></table></figure>
+<h2 id="基本的测试"><a href="#基本的测试" class="headerlink" title="基本的测试"></a>基本的测试</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testExample</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> a : <span class="type">Int32!</span> = <span class="number">5</span></span><br><span class="line">        <span class="keyword">let</span> b : <span class="type">Int32!</span> = <span class="number">10</span></span><br><span class="line">        <span class="keyword">let</span> expected: <span class="type">Int32!</span> = <span class="number">16</span>;</span><br><span class="line">        <span class="keyword">let</span> <span class="built_in">c</span>:<span class="type">Int32!</span> =  <span class="keyword">self</span>.add(a: a, b: b)</span><br><span class="line">        <span class="type">XCTAssertEqual</span>(<span class="built_in">c</span>, expected, <span class="string">"add方法错误"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="异步测试"><a href="#异步测试" class="headerlink" title="异步测试"></a>异步测试</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testAsyn</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> exp : <span class="type">XCTestExpectation</span> = <span class="keyword">self</span>.expectation(description: <span class="string">"出错啦"</span>)</span><br><span class="line">    <span class="keyword">let</span> queue: <span class="type">OperationQueue</span> = <span class="type">OperationQueue</span>.<span class="keyword">init</span>()</span><br><span class="line">    queue.addOperation &#123;</span><br><span class="line">        sleep(<span class="number">2</span>)</span><br><span class="line">        <span class="type">XCTAssertLessThanOrEqual</span>(<span class="string">"1"</span>, <span class="string">"1"</span>)</span><br><span class="line">        exp.fulfill()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span> .waitForExpectations(timeout: <span class="number">3</span>, handler: &#123; (error: <span class="type">Error?</span>) <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"超时：\(error.debugDescription)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)            </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testPerformanceExample</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//性能测试方法，通过测试block中方法执行的时间，比对设定的标准值和偏差觉得是否可以通过测试</span></span><br><span class="line">        <span class="keyword">self</span>.measure &#123;</span><br><span class="line">            <span class="keyword">var</span> i: <span class="type">Int64</span> = <span class="number">1</span></span><br><span class="line">            <span class="keyword">var</span> r: <span class="type">Int64</span> = <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> i &lt; <span class="number">100000000</span> &#123;</span><br><span class="line">                r += i</span><br><span class="line">                i+=<span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"r=\(r)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>查看结果&amp;调整期望</p>
+<p>演示</p>
+<h2 id="代码覆盖率"><a href="#代码覆盖率" class="headerlink" title="代码覆盖率"></a>代码覆盖率</h2><p>配置选项：</p>
+<p>Product-&gt;schemes-&gt;edit scheme</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fjzkzcjulbj30nf08ugmy.jpg" alt="WX20170928-091800"></p>
+<p>代码覆盖是基于文件查看的：新建一个CodeCoverage.swift 提供一个checkName方法。</p>
+<p>测试代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testCodeCoverage</span><span class="params">()</span></span>  &#123;</span><br><span class="line">	<span class="type">CodeCoverage</span>.checkName(name: <span class="string">"riverli"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>查看结果：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006h0fcHly1fjzkztlm0aj30xc06zmza.jpg" alt="WX20170928-092037"></p>
+<h2 id="基本UI测试"><a href="#基本UI测试" class="headerlink" title="基本UI测试"></a>基本UI测试</h2><p>演示</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS国际化方案 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化多语言"><span class="toc-text">初始化多语言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#info-plist国际化"><span class="toc-text">info.plist国际化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#判断系统是否是中文"><span class="toc-text">判断系统是否是中文</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS国际化方案
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-09-22 15:04:27</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#国际化" title="国际化">国际化</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="初始化多语言"><a href="#初始化多语言" class="headerlink" title="初始化多语言"></a>初始化多语言</h1><p>在项目PROJECT -&gt; info -&gt; Localizations 添加你想适配的语言。</p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1fjsdf4i6rej20e102pwem.jpg" alt><br><a id="more"></a></p>
+<h1 id="info-plist国际化"><a href="#info-plist国际化" class="headerlink" title="info.plist国际化"></a>info.plist国际化</h1><p>info.plist中包含的项目名称、权限申请相关内容需要国际化：</p>
+<p>新建：<strong>InfoPlist.strings</strong>，选择要国际化的语言，如下图所示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1fjscy1u622j20eg03mmxm.jpg" alt></p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1fjsd3bl30pj20f204umxf.jpg" alt></p>
+<p>在InfoPlist.string 不同的语言里填上相应的内容：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">"CFBundleName" = "";</span><br><span class="line">"CFBundleDisplayName" = "";</span><br><span class="line">"NSLocationWhenInUseUsageDescription" = "";</span><br><span class="line">"NSCameraUsageDescription" = "";</span><br><span class="line">"NSMicrophoneUsageDescription" = "";</span><br><span class="line">"NSPhotoLibraryUsageDescription" = "";</span><br><span class="line">"NSBluetoothPeripheralUsageDescription" = "";</span><br><span class="line">"NSAppleMusicUsageDescription" = "";</span><br></pre></td></tr></table></figure>
+<p>关于info.plist中的字段描述可以参考这里：<a href="https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009248-SW1" target="_blank" rel="noopener">apple 文档</a></p>
+<h1 id="判断系统是否是中文"><a href="#判断系统是否是中文" class="headerlink" title="判断系统是否是中文"></a>判断系统是否是中文</h1><p>我们的项目里，中文(台湾，澳门，繁体)一律显示问简体中文，其他都显示为英文：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">typedef enum : NSUInteger &#123;</span><br><span class="line">    LANGUAGE_CN,</span><br><span class="line">    LANGUAGE_EN,</span><br><span class="line">    LANGUAGE_OTHER,</span><br><span class="line">&#125; SYSTEMLANGUAGE;</span><br><span class="line"></span><br><span class="line">-(SYSTEMLANGUAGE)systemLn</span><br><span class="line">&#123;</span><br><span class="line">    NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];</span><br><span class="line"></span><br><span class="line">    if (StringContains(language, @&quot;zh-Hant&quot;) ||</span><br><span class="line">        StringContains(language, @&quot;zh-Hans&quot;)) &#123;</span><br><span class="line">        return LANGUAGE_CN;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return LANGUAGE_EN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

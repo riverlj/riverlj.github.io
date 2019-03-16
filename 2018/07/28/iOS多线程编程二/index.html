@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        iOS多线程编程二 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步与异步"><span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CGD的使用"><span class="toc-text">CGD的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于GCD源码的理解"><span class="toc-text">关于GCD源码的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        iOS多线程编程二
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-07-28 14:50:38</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#多线程" title="多线程">多线程</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>上一篇文章我介绍了NSThread相关的API以及使用方法，本文我们继续来讲解另一套线程相关的API, 那就是GCD。我们在开发过程中用的最多也是GCD，面试中问道最多的也是GCD。通过阅读本文，希望您对GCD的理解有新的收获。本文将讲解一下内容：</p>
+<ul>
+<li>队列</li>
+<li>同步与异步 </li>
+<li>举例</li>
+</ul>
+<p>个人认为，掌握好GCD最好的方式是彻底理解队列、同步、异步这些概念。而不是去死记硬背。死记硬背固然能应付一时，当终究不是正道，下面我们来一一解释这些概念。<br><a id="more"></a></p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>关于队列，我们需要明白队列是做什么的，我的理解是队列是用来存放任务的。而队列分为串行队列、并行队列。无论是串行队列还是并行队列，都是按照先进先执行的选择进行的。区别在于：对于串行队列而言，一次只能执行一个任务，该任务执行完毕之后才能执行下一个任务，而并行队列则不同，并行队列一个可以去取若干个任务执行，具体执行多个任务根据系统的环境不同而不同。下面讲述一下iOS系统中常用的队列。</p>
+<table>
+<thead>
+<tr>
+<th>队列名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主队列</td>
+<td>主队列是一个串行队列，运行在主线程之中。<br>经常被用来从其他线程切换到主线程操作UI。<br>可以通过<code>dispatch_get_main_queue()</code> 获取到。</td>
+</tr>
+<tr>
+<td>全局队列</td>
+<td>全局队列是一个并行队列，可以并发的执行一个<br>或者多个任务，经常用来执行一些简便的异步任务<br>可以通过<code>dispatch_get_global_queue(&quot;优先级&quot;, &quot;&quot;)</code>来获取。</td>
+</tr>
+<tr>
+<td>串行队列</td>
+<td>串行队列是一次只能执行一个任务的队列，通常在当前线程环境下执行。<br>但多个串行队列是可以并行执行的。</td>
+</tr>
+<tr>
+<td>并行队列</td>
+<td>并行队列通常会开启多个线程来执行队列中的任务，<br>开启的线程数量根据系统决定，因为iOS的线程是有系统统一管理的。</td>
+</tr>
+</tbody>
+</table>
+<p>加一句废话：对于GCD而言，一个block就是一个任务，一个任务在一个线程中执行。</p>
+<h3 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h3><p>同步和异步关注的是 <strong>消息通信机制</strong> 所谓同步，就是发出一个调用的时候，在没有得到结果之前，该调用就不返回。但是一旦调用返回，就得到返回值了。</p>
+<p>而异步则是相反，调用发出之后，这个调用就直接返回了，所以没有返回结果。换句话说，当一个异步过程调用发出之后，调用者不会立即得到结果。而是在调用发出后，被调用者通过状态，通知来告知调用者，或者通过回调函数处理这个调用。</p>
+<p>我们来看一下GCD中两个关键的API，<code>dispatch_async</code> 、<code>dispatch_sync</code> </p>
+<p><strong>dispatch_async:</strong></p>
+<blockquote>
+<p>该函数需要两个参数，第一个参数是一个队列，第二个参数是一个block。</p>
+<p>它的作用是：将block提交给队列，调用该方法会在block提交给队列之后立即返回，不会等待block的调用。而队列决定了该block是串行执行还是和该队列里其他任务同时执行。独立的串行队列之间可以同时执行。</p>
+</blockquote>
+<p><strong>dispatch_sync:</strong></p>
+<blockquote>
+<p>和<code>dispatch_async</code>一样该函数同样需要两个参数。</p>
+<p>它的作用是将block提交给队列并同步执行。与<code>dispatch_asyn</code>不同的是该函数不会立即返回，它会等到block的内容执行完毕之后才返回。</p>
+<p>在当前队列中调用该函数，并将当前队列指定为目标队列会造成死锁。</p>
+<p>与<code>dispatch_async</code>不同的是，不会对目标队列执行retain操作，因为该函数的调用是同步的，它”借用”调用者的引用，同时也不会对block执行block_copy操作。</p>
+<p>该函数会尽可能的在当前线程上调用该block。</p>
+</blockquote>
+<p>了解了队列、同步/异步、dispatch_async/dispatch_sync之后，我们来看一下CGD的一些使用场景。</p>
+<h3 id="CGD的使用"><a href="#CGD的使用" class="headerlink" title="CGD的使用"></a>CGD的使用</h3><p><strong>例1，指出下面代码的输出结果：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;RiverLi&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        [NSThread sleepForTimeInterval:3];</span><br><span class="line">        NSLog(@&quot;%@&quot;, NSThread.currentThread);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;11111111------&gt;%@&quot;, NSThread.currentThread);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果是：</p>
+<blockquote>
+<p>&lt;NSThread: 0x604000072840&gt;{number = 1, name = main}</p>
+<p>11111111——&gt;&lt;NSThread: 0x604000072840&gt;{number = 1, name = main}</p>
+</blockquote>
+<p>这段代码其实很好理解，<code>dispatch_sync</code> 等待block执行完毕之后在执行其之后的代码。</p>
+<p><strong>例2，指出下面代码的输出结果：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    dispatch_queue_t queue = dispatch_queue_create(&quot;RiverLi&quot;, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    dispatch_sync(queue, ^&#123;</span><br><span class="line">        dispatch_async(queue, ^&#123;</span><br><span class="line">            [NSThread sleepForTimeInterval:3];</span><br><span class="line">            NSLog(@&quot;%@&quot;, NSThread.currentThread);  //(a)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;11111111------&gt;%@&quot;, NSThread.currentThread);	//(b)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果是：</p>
+<blockquote>
+<p> 11111111——&gt;&lt;NSThread: 0x600000076900&gt;{number = 1, name = main}</p>
+<p>&lt;NSThread: 0x60000027e140&gt;{number = 3, name = (null)}</p>
+</blockquote>
+<p>分析：为什么不是先打印(a)的信息，对于<code>dispatch_sync</code> 而言，他需要等待block的执行，而block内部是一个<code>dispatch_async</code> 它提交block之后就立即返回，而它返回之后<code>dispatch_sync</code>block的内部任务已经完成，所以(b)就先执行了。3s之后，执行(a)。</p>
+<p><strong>例3，指出下面代码的输出结果：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    dispatch_sync(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, NSThread.currentThread);</span><br><span class="line">    &#125;);</span><br><span class="line">    NSLog(@&quot;11111111------&gt;%@&quot;, NSThread.currentThread);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果是：</p>
+<blockquote>
+<p>崩溃</p>
+</blockquote>
+<p>解释：首先需要注意<code>viewDidLoad</code>方法是在主队列中执行的，调用<code>dispatch_sync</code> 并传入主队列。我们知道主队列是串行队列，对串行队列而言任务是一个执行完毕之后再执行另一个任务。上面的代码主队列正在执行某一项任务，当执行到<code>dispatch_sync</code>方法时，向主队列中添加了一个任务，并等待该任务的执行完毕，然后这是主队列正在执行包含<code>dispatch_sync</code>方法的任务，这样就造成了两个任务之间的彼此等待，而造成系统崩溃。</p>
+<h3 id="关于GCD源码的理解"><a href="#关于GCD源码的理解" class="headerlink" title="关于GCD源码的理解"></a>关于GCD源码的理解</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html" target="_blank" rel="noopener">Dispatch Queues</a><br><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="noopener">严肃的问答</a></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

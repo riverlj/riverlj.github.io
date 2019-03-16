@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Xcode9 重构功能 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#重命名"><span class="toc-text">重命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导出表达式"><span class="toc-text">导出表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#各种高效操作"><span class="toc-text">各种高效操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Xcode9 重构功能
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2017-11-19 22:44:00</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Xcode" title="Xcode">Xcode</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>今天聊一下Xcode9中关于代码重构功能的一些使用，可以方便我们更加高效的书写或者修改代码。</p>
+<p><strong>重构功能所在的位置：</strong></p>
+<p><strong>Editor-&gt;Refactor</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/d3681d85ly1flnqm3qjxnj20ro0gwdiu.jpg" alt></p>
+<a id="more"></a>
+<h2 id="重命名"><a href="#重命名" class="headerlink" title="重命名"></a>重命名</h2><p>按住<strong>command</strong>，并点击要重命名的内容，如下图，点击rename。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnqqvu6lxj20h40gmab3.jpg" alt></p>
+<p>或者选中要修改的名字，然后双指(右键)，如下图。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnqt48yqnj21540ekwgm.jpg" alt></p>
+<p>点击<strong>Rename…</strong></p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnqw4qdc8j21jw0gcwgj.jpg" alt></p>
+<p>选择要重命名的内容： 所有、代码相关、文件名相关、注释相关、其他</p>
+<h2 id="导出表达式"><a href="#导出表达式" class="headerlink" title="导出表达式"></a>导出表达式</h2><p>选中要导出的内容，比如下图, 可以导出变量、方法。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnr1yigldj20x00p00xf.jpg" alt></p>
+<p>导出方法的结果：</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnr4yb0n4j20o80cgwfo.jpg" alt></p>
+<p>导出变量的结果</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnr5mcpw9j20mu0840tk.jpg" alt></p>
+<p>你可重新命名方法名和变量名，会一次性修改。</p>
+<h2 id="各种高效操作"><a href="#各种高效操作" class="headerlink" title="各种高效操作"></a>各种高效操作</h2><p>快速添加 if switch 等分支语句</p>
+<p>选中if语句，然后按下 <strong>command + shift + A</strong> 可以为方法的添加其他分支。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnra4n5tjj210i0d641j.jpg" alt></p>
+<p>同样对于switch语句</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/d3681d85ly1flnrevt2wwj20pa0ma0wb.jpg" alt></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://talk.objc.io/episodes/S01E59-refactoring-with-xcode-9" target="_blank" rel="noopener">https://talk.objc.io/episodes/S01E59-refactoring-with-xcode-9</a></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
