@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        算法训练-LeeCode002两数相加 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>李江</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#题目描述"><span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法一：暴力计算"><span class="toc-text">解法一：暴力计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解法二：按位计算"><span class="toc-text">解法二：按位计算</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 洞悉世事胸宽襟，阅尽人情眼界宽 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        算法训练-LeeCode002两数相加
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-05-06 23:06:44</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#LeeCode 算法" title="LeeCode 算法">LeeCode 算法</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><blockquote>
+<p>给出两个 <strong>非空</strong> 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 <strong>逆序</strong> 的方式存储的，并且它们的每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(<span class="number">2</span> -&gt; <span class="number">4</span> -&gt; <span class="number">3</span>) + (<span class="number">5</span> -&gt; <span class="number">6</span> -&gt; <span class="number">4</span>)</span><br><span class="line">输出：<span class="number">7</span> -&gt; <span class="number">0</span> -&gt; <span class="number">8</span></span><br><span class="line">原因：<span class="number">342</span> + <span class="number">465</span> = <span class="number">807</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法一：暴力计算"><a href="#解法一：暴力计算" class="headerlink" title="解法一：暴力计算"></a>解法一：暴力计算</h3><p>该解法使用数字相加的方法进行计算，但该解法有一个致命的问题是整数溢出。所以，严格意义上说，这种方式是错误的。代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listNodeLength</span><span class="params">(ListNode *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">list</span> == <span class="literal">NULL</span> || <span class="built_in">list</span>-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">    ListNode *tmpPoint = <span class="built_in">list</span>;</span><br><span class="line">    <span class="keyword">while</span>(tmpPoint-&gt;next != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        size++;</span><br><span class="line">        tmpPoint = tmpPoint-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum1 = getListSum(l1);</span><br><span class="line">        <span class="keyword">int</span> sum2 = getListSum(l2);</span><br><span class="line">        <span class="keyword">int</span> sum3 = sum1 + sum2;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum3Length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> tmp = sum3;</span><br><span class="line">        <span class="keyword">while</span>(tmp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            tmp = tmp/<span class="number">10</span>;</span><br><span class="line">            sum3Length++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode *head = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *tail = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">int</span> m = sum3;</span><br><span class="line">        <span class="keyword">while</span>(sum3Length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> val = m%(<span class="number">10</span>);</span><br><span class="line">            m = m / <span class="number">10</span>;</span><br><span class="line">            </span><br><span class="line">            ListNode *<span class="built_in">list</span> = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">            <span class="keyword">if</span> (head)</span><br><span class="line">            &#123;</span><br><span class="line">                tail-&gt;next = <span class="built_in">list</span>;</span><br><span class="line">                tail = <span class="built_in">list</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                head = <span class="built_in">list</span>;</span><br><span class="line">                tail = head;</span><br><span class="line">            &#125;</span><br><span class="line">            sum3Length--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getListSum</span><span class="params">(ListNode *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = listNodeLength(<span class="built_in">list</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        ListNode *tmpPoint = <span class="built_in">list</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmpPoint != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            sum += <span class="built_in">pow</span>(<span class="number">10</span>, length-index) * tmpPoint-&gt;val;</span><br><span class="line">            tmpPoint = tmpPoint-&gt;next;</span><br><span class="line">            index++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="解法二：按位计算"><a href="#解法二：按位计算" class="headerlink" title="解法二：按位计算"></a>解法二：按位计算</h3><p>该解法使用一个变量表示进位值。如下图，temp表示进位。将两个list长度改为一致，通过补0操作。</p>
+<p><img src="https://i.loli.net/2019/05/07/5cd11415332d4.png" alt="企业微信20190507011341.png"></p>
+<p>具体代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode *next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listNodeLength</span><span class="params">(ListNode *<span class="built_in">list</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">list</span> == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line">    ListNode *tmpPoint = <span class="built_in">list</span>;</span><br><span class="line">    <span class="keyword">while</span>(tmpPoint != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        size++;</span><br><span class="line">        tmpPoint = tmpPoint-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">addTwoNumbers</span><span class="params">(ListNode* l1, ListNode* l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l1Length = listNodeLength(l1);</span><br><span class="line">        <span class="keyword">int</span> l2Length = listNodeLength(l2);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> max = l1Length;</span><br><span class="line">        ListNode *maxListNode = l1;</span><br><span class="line">        <span class="keyword">int</span> min = l2Length;</span><br><span class="line">        ListNode *minListNode = l2;</span><br><span class="line">        <span class="keyword">if</span> (l1Length&lt;l2Length)</span><br><span class="line">        &#123;</span><br><span class="line">            max = l2Length;</span><br><span class="line">            maxListNode = l2;</span><br><span class="line">            </span><br><span class="line">            min = l1Length;</span><br><span class="line">            minListNode = l1;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        ListNode *minTail = minListNode;</span><br><span class="line">        ListNode *maxTail = maxListNode;</span><br><span class="line">        <span class="keyword">while</span> (maxTail != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (minTail -&gt; next == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                minTail-&gt;next = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            maxTail = maxTail -&gt; next;</span><br><span class="line">            minTail = minTail-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        ListNode* l1temp = minListNode;</span><br><span class="line">        ListNode* l2temp = maxListNode;</span><br><span class="line">        ListNode *result = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *resultTail = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; max; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = l1temp-&gt;val + l2temp-&gt;val + temp;</span><br><span class="line">            temp = sum/<span class="number">10</span>;</span><br><span class="line">            <span class="keyword">int</span> val = sum%<span class="number">10</span>;</span><br><span class="line">            ListNode *node = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">            <span class="keyword">if</span> (result == <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                result = node;</span><br><span class="line">                resultTail = result;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                resultTail-&gt;next = node;</span><br><span class="line">                resultTail = node;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            l1temp = l1temp-&gt;next;</span><br><span class="line">            l2temp = l2temp-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (temp &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            resultTail-&gt;next = <span class="keyword">new</span> ListNode(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/coder_riverli">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/riverlj">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/3546815877">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/riverlj">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        RiverLi@2019 Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
