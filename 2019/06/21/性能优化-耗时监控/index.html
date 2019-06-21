@@ -11,7 +11,7 @@
 
     <title>
         
-        About - undefined
+        性能优化-耗时监控 - undefined
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -87,6 +87,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Time-Profiler进行耗时监控"><span class="toc-text">使用Time Profiler进行耗时监控</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#具体使用"><span class="toc-text">具体使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过hook-objc-msgSend方法获取方法的执行耗时"><span class="toc-text">通过hook objc_msgSend方法获取方法的执行耗时</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理-1"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#具体使用-1"><span class="toc-text">具体使用</span></a></li></ol></li></ol>
+</div>
     
 </div>
 
@@ -111,13 +115,38 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-content ">
-    <h4 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h4><p>姓名：李江<br>坐标：北京<br>职业：iOS开发者，专注于移动前端开发<br>微信：RiverLi_0106</p>
 
-    
-    <div id="comment-container">
+
+<div class="post-container">
+    <div class="post-title">
+        性能优化-耗时监控
     </div>
-    <div id="lv-container">
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-06-21 16:34:02</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#性能优化" title="性能优化">性能优化</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="使用Time-Profiler进行耗时监控"><a href="#使用Time-Profiler进行耗时监控" class="headerlink" title="使用Time Profiler进行耗时监控"></a>使用Time Profiler进行耗时监控</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><h4 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h4><h3 id="通过hook-objc-msgSend方法获取方法的执行耗时"><a href="#通过hook-objc-msgSend方法获取方法的执行耗时" class="headerlink" title="通过hook objc_msgSend方法获取方法的执行耗时"></a>通过hook objc_msgSend方法获取方法的执行耗时</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h4><h4 id="具体使用-1"><a href="#具体使用-1" class="headerlink" title="具体使用"></a>具体使用</h4>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
     </div>
 </div>
 
@@ -185,7 +214,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
