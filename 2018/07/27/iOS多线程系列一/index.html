@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程和线程的"><span class="toc-text">进程和线程的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程"><span class="toc-text">进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的生命周期"><span class="toc-text">线程的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSThread的基本用法"><span class="toc-text">NSThread的基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程间的通信"><span class="toc-text">线程间的通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程和线程的"><span class="toc-text">进程和线程的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程"><span class="toc-text">进程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的生命周期"><span class="toc-text">线程的生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NSThread的基本用法"><span class="toc-text">NSThread的基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程间的通信"><span class="toc-text">线程间的通信</span></a></li></ol>
 </div>
     
 </div>
@@ -168,7 +168,6 @@
 <p><strong>注意：</strong> 对于一个已经finished的线程，不能再调用其start方法了，会崩溃。</p>
 <h3 id="线程间的通信"><a href="#线程间的通信" class="headerlink" title="线程间的通信"></a>线程间的通信</h3><p>在iOS中，UI相关的操作需要回到主线程进行操作，那么如何在NSThread线程中回到主线程呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//回到主线程执行</span><br><span class="line">[self performSelectorOnMainThread:@selector(onMainThreadWork) withObject:nil waitUntilDone:NO];</span><br><span class="line"></span><br><span class="line">//回到指定的线程执行</span><br><span class="line">[self performSelector:@selector(方法名) onThread:执行的线程 withObject:参数 waitUntilDone:是否阻塞];</span><br></pre></td></tr></table></figure></p>
 <p><code>waitUntilDone</code>这个参数表示是否阻塞当前代码，yes表示阻塞，selecotor方法不执行完毕，则代码一直阻塞在这里，不往下执行。no表示不阻塞，即不等待selector方法执行完毕。·</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
 
         
         <br>

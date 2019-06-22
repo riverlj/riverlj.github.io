@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式及其作用"><span class="toc-text">原型模式及其作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时使用原型模式"><span class="toc-text">何时使用原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝和深拷贝"><span class="toc-text">浅拷贝和深拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式的实践"><span class="toc-text">原型模式的实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式及其作用"><span class="toc-text">原型模式及其作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时使用原型模式"><span class="toc-text">何时使用原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝和深拷贝"><span class="toc-text">浅拷贝和深拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型模式的实践"><span class="toc-text">原型模式的实践</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
 </div>
     
 </div>
@@ -185,7 +185,6 @@
 <p>这里有一个非常有趣的问题，为什么要在<code>Form</code>协议里面添加一个copy方法，如果不写成copy，写为clone方法会怎么样？</p>
 <p>答案是NSObject类里面含有copy方法，当调用copy方法的时候回自动调用copyWithZone方法，我们在SchoolForm的copyWithZone方法里遍历了所用相关的form, 二这些form的类型实在运行时才能确定的，可能是schoolForm也可能是JobForm等等。但无论是什么类型的Form，它都继承自NSObject。所以这是一个偷梁换柱的操作，看起来像是调用<code>Form</code>协议里的copy方法，其实是调用NSObject的copy方法。换成clone的话就不能使用NSCopying协议了。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>本文参考《Objective-C编程之道：iOS设计模式解析》<br>你可以在公众号里回复”资源”得到本书的电子版，当然建议购买正版。</p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
 
         
         <br>

@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步与异步"><span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CGD的使用"><span class="toc-text">CGD的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于GCD源码的理解"><span class="toc-text">关于GCD源码的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他"><span class="toc-text">其他</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#队列"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步与异步"><span class="toc-text">同步与异步</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CGD的使用"><span class="toc-text">CGD的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于GCD源码的理解"><span class="toc-text">关于GCD源码的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
 </div>
     
 </div>
@@ -213,7 +213,6 @@
 </blockquote>
 <p>解释：首先需要注意<code>viewDidLoad</code>方法是在主队列中执行的，调用<code>dispatch_sync</code> 并传入主队列。我们知道主队列是串行队列，对串行队列而言任务是一个执行完毕之后再执行另一个任务。上面的代码主队列正在执行某一项任务，当执行到<code>dispatch_sync</code>方法时，向主队列中添加了一个任务，并等待该任务的执行完毕，然后这是主队列正在执行包含<code>dispatch_sync</code>方法的任务，这样就造成了两个任务之间的彼此等待，而造成系统崩溃。</p>
 <h3 id="关于GCD源码的理解"><a href="#关于GCD源码的理解" class="headerlink" title="关于GCD源码的理解"></a>关于GCD源码的理解</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html" target="_blank" rel="noopener">Dispatch Queues</a><br><a href="https://www.zhihu.com/question/19732473" target="_blank" rel="noopener">严肃的问答</a></p>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>本文首发于RiverLi的个人公众号，如需转载请与我本人联系。<br>由于本博客暂未开放评论功能，如有任何问题，请关注我的公众号(RiverLi)，给我留言，或者在对应的文章评论。<br><img src="http://ww1.sinaimg.cn/large/d3681d85ly1ftopf13njpj207607674r.jpg" alt="RiverLi的公众号"></p>
 
         
         <br>
